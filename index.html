@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#6d4aff" />
+  <meta name="description" content="PetLife — histórico digital inteligente da vida do seu pet." />
+  <title>PetLife</title>
+  <style>
+:root {
+  --bg: #f7f5fc;
+  --surface: #ffffff;
+  --surface-2: #f0ecff;
+  --text: #22212a;
+  --muted: #737181;
+  --primary: #6d4aff;
+  --primary-2: #8f75ff;
+  --success: #27a86b;
+  --danger: #d94b65;
+  --warning: #e79b23;
+  --border: #e7e2f3;
+  --shadow: 0 14px 40px rgba(55, 32, 112, .10);
+  --radius: 22px;
+  --nav-h: 78px;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(143,117,255,.16), transparent 28%),
+    linear-gradient(180deg, #fbfaff 0%, var(--bg) 45%, #f4f1fb 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+
+.app-shell { min-height: 100vh; }
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.auth-card {
+  width: min(100%, 440px);
+  background: rgba(255,255,255,.93);
+  border: 1px solid rgba(255,255,255,.8);
+  box-shadow: var(--shadow);
+  border-radius: 28px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+}
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.brand-mark {
+  width: 52px; height: 52px; border-radius: 18px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: white; font-size: 28px; box-shadow: 0 10px 24px rgba(109,74,255,.28);
+}
+.brand h1 { margin: 0; font-size: 28px; }
+.brand p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+.main {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 22px 20px calc(var(--nav-h) + 28px);
+}
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 18px; margin-bottom: 18px;
+}
+.topbar h1 { margin: 0; font-size: clamp(24px, 4vw, 34px); }
+.topbar p { margin: 5px 0 0; color: var(--muted); }
+.avatar {
+  width: 46px; height: 46px; border-radius: 16px; object-fit: cover;
+  display: grid; place-items: center; background: var(--surface-2); font-weight: 800;
+  border: 1px solid var(--border);
+}
+
+.bottom-nav {
+  position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: 14px;
+  width: min(calc(100% - 24px), 700px);
+  background: rgba(255,255,255,.94); border: 1px solid rgba(231,226,243,.9);
+  box-shadow: 0 18px 44px rgba(35,20,77,.16); backdrop-filter: blur(16px);
+  border-radius: 24px; padding: 8px; display: grid; grid-template-columns: repeat(5, 1fr);
+}
+.nav-btn {
+  border: 0; background: transparent; color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 4px; border-radius: 16px; font-size: 11px;
+}
+.nav-btn span:first-child { font-size: 21px; }
+.nav-btn.active { color: var(--primary); background: var(--surface-2); font-weight: 700; }
+
+.grid { display: grid; gap: 16px; }
+.grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.card {
+  background: rgba(255,255,255,.95); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: 0 8px 24px rgba(55,32,112,.06);
+  padding: 18px;
+}
+.card h2, .card h3 { margin-top: 0; }
+.section-title { display:flex; justify-content:space-between; align-items:center; gap:12px; margin: 24px 0 12px; }
+.section-title h2 { margin: 0; font-size: 20px; }
+.link-btn { border:0; background:transparent; color:var(--primary); font-weight:700; padding:6px; }
+
+.hero {
+  background: linear-gradient(135deg, #6845f7 0%, #8a6dfc 70%, #a28cff 100%);
+  color: white; border-radius: 28px; padding: 24px; box-shadow: 0 16px 36px rgba(109,74,255,.25);
+  display:grid; grid-template-columns: 1fr auto; gap:20px; align-items:center;
+}
+.hero h2 { margin:0 0 8px; font-size: clamp(24px,4vw,34px); }
+.hero p { margin:0; color:rgba(255,255,255,.84); max-width:660px; }
+.hero .paw { font-size: 64px; opacity:.9; }
+
+.pet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.pet-card { padding: 0; overflow: hidden; cursor: pointer; transition: .2s ease; }
+.pet-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.pet-photo { width:100%; aspect-ratio: 16 / 10; object-fit:cover; background:linear-gradient(135deg,#eee8ff,#ddd3ff); display:grid; place-items:center; font-size:54px; }
+.pet-card-body { padding: 16px; }
+.pet-card h3 { margin:0 0 5px; }
+.meta { color: var(--muted); font-size: 14px; }
+
+.list { display:flex; flex-direction:column; gap:10px; }
+.list-item { display:flex; align-items:center; gap:12px; padding:12px; border-radius:16px; background:#faf9fd; border:1px solid var(--border); }
+.list-icon { width:42px; height:42px; border-radius:14px; display:grid; place-items:center; background:var(--surface-2); font-size:21px; flex:0 0 auto; }
+.list-body { min-width:0; flex:1; }
+.list-body strong { display:block; }
+.list-body small { color:var(--muted); }
+.list-actions { display:flex; gap:6px; }
+
+.btn {
+  border:0; border-radius:15px; padding:12px 16px; font-weight:800;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  transition:.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.primary { background:var(--primary); color:#fff; box-shadow:0 10px 20px rgba(109,74,255,.22); }
+.btn.secondary { background:var(--surface-2); color:var(--primary); }
+.btn.ghost { background:#fff; border:1px solid var(--border); color:var(--text); }
+.btn.danger { background:#fff0f3; color:var(--danger); }
+.btn.full { width:100%; }
+.icon-btn { border:0; width:38px; height:38px; border-radius:12px; background:var(--surface-2); display:grid; place-items:center; }
+.fab {
+  position:fixed; z-index:35; right:22px; bottom:102px; width:58px; height:58px;
+  border:0; border-radius:19px; background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  color:white; font-size:29px; box-shadow:0 16px 30px rgba(109,74,255,.34);
+}
+
+.form-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:14px; }
+.field { display:flex; flex-direction:column; gap:7px; }
+.field.full { grid-column:1/-1; }
+.field label { font-weight:700; font-size:14px; }
+.field input, .field select, .field textarea {
+  width:100%; border:1px solid var(--border); background:#fff; color:var(--text);
+  border-radius:14px; padding:12px 13px; outline:none;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color:var(--primary-2); box-shadow:0 0 0 4px rgba(109,74,255,.10); }
+.field textarea { min-height:100px; resize:vertical; }
+.helper { color:var(--muted); font-size:12px; }
+
+.modal-backdrop {
+  position:fixed; inset:0; z-index:100; background:rgba(20,15,32,.48); backdrop-filter:blur(5px);
+  display:grid; place-items:center; padding:18px;
+}
+.modal {
+  width:min(100%,760px); max-height:92vh; overflow:auto; background:#fff; border-radius:26px;
+  box-shadow:0 28px 80px rgba(0,0,0,.28); padding:22px;
+}
+.modal-head { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:16px; }
+.modal-head h2 { margin:0; }
+
+.tabs { display:flex; gap:8px; overflow:auto; padding-bottom:3px; }
+.tab { border:0; white-space:nowrap; border-radius:999px; padding:10px 14px; background:#fff; border:1px solid var(--border); color:var(--muted); font-weight:700; }
+.tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+.profile-hero { display:grid; grid-template-columns:140px 1fr; gap:20px; align-items:center; }
+.profile-photo { width:140px; height:140px; border-radius:30px; object-fit:cover; background:var(--surface-2); display:grid; place-items:center; font-size:64px; }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.badge { background:var(--surface-2); color:var(--primary); border-radius:999px; padding:7px 10px; font-size:12px; font-weight:800; }
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px; }
+.stat { background:#faf9fd; border:1px solid var(--border); border-radius:16px; padding:12px; }
+.stat strong { display:block; font-size:18px; }
+.stat small { color:var(--muted); }
+
+.timeline { position:relative; padding-left:24px; }
+.timeline:before { content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:var(--border); }
+.timeline-item { position:relative; margin-bottom:14px; }
+.timeline-item:before { content:""; position:absolute; left:-22px; top:8px; width:12px; height:12px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 4px var(--surface-2); }
+.timeline-card { background:#fff; border:1px solid var(--border); border-radius:16px; padding:14px; }
+.timeline-card h4 { margin:0 0 4px; }
+.timeline-card p { margin:8px 0 0; color:var(--muted); }
+
+.community-post { display:flex; flex-direction:column; gap:12px; }
+.post-head { display:flex; gap:10px; align-items:center; }
+.post-actions { display:flex; gap:10px; }
+.post-actions button { border:0; background:var(--surface-2); border-radius:999px; padding:8px 12px; }
+
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.kpi { padding:18px; border-radius:20px; background:linear-gradient(135deg,#fff,#f6f2ff); border:1px solid var(--border); }
+.kpi strong { font-size:28px; display:block; }
+.kpi span { color:var(--muted); font-size:13px; }
+
+.empty { text-align:center; padding:30px 18px; color:var(--muted); }
+.empty .emoji { font-size:52px; margin-bottom:10px; }
+.toast {
+  position:fixed; z-index:200; left:50%; transform:translateX(-50%) translateY(30px); bottom:110px;
+  background:#22212a; color:#fff; padding:12px 16px; border-radius:14px; opacity:0; pointer-events:none; transition:.25s ease;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.notice { padding:12px 14px; border-radius:14px; background:#fff8e8; color:#79561b; border:1px solid #f2dfb5; font-size:13px; }
+.ai-box { background:linear-gradient(135deg,#f0ecff,#faf8ff); border:1px solid #dcd3ff; border-radius:18px; padding:15px; }
+.ai-box h4 { margin:0 0 6px; color:var(--primary); }
+
+@media (min-width: 860px) {
+  .main { padding-top:30px; }
+  .bottom-nav { top:18px; bottom:auto; width:auto; left:auto; right:22px; transform:none; grid-template-columns:repeat(5,88px); }
+  .main { padding-right:20px; }
+  .fab { bottom:26px; }
+}
+
+@media (max-width: 760px) {
+  .grid.two, .grid.three, .form-grid, .kpis { grid-template-columns:1fr; }
+  .hero { grid-template-columns:1fr; }
+  .hero .paw { display:none; }
+  .profile-hero { grid-template-columns:1fr; text-align:center; }
+  .profile-photo { margin:auto; }
+  .stat-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <input id="file-input" type="file" accept="image/jpeg,image/png,application/pdf" hidden />
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script>
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+const DB_KEY = 'petlife_mvp_v1';
+const SESSION_KEY = 'petlife_session_v1';
+
+const categoryMap = {
+  foto: ['📸', 'Foto'], vacina: ['💉', 'Vacina'], consulta: ['🩺', 'Consulta veterinária'],
+  exame: ['🧪', 'Exame'], receita: ['🧾', 'Receita'], laudo: ['📑', 'Laudo'],
+  medicamento: ['💊', 'Medicamento'], cirurgia: ['🏥', 'Cirurgia'], peso: ['⚖️', 'Alteração de peso'],
+  comportamento: ['🐾', 'Comportamento'], alimentacao: ['🥣', 'Alimentação'], evento: ['✨', 'Evento importante'],
+  documento: ['📄', 'Outro documento']
+};
+
+function isoDate(d = new Date()) { return new Date(d).toISOString().slice(0,10); }
+function formatDate(d) { if (!d) return '—'; return new Intl.DateTimeFormat('pt-BR').format(new Date(`${d}T12:00:00`)); }
+function uid(prefix='id') { return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2,8)}`; }
+function esc(v='') { return String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+function getAge(date) {
+  if (!date) return 'Idade não informada';
+  const birth = new Date(`${date}T12:00:00`), now = new Date();
+  let years = now.getFullYear() - birth.getFullYear();
+  const m = now.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) years--;
+  return years <= 0 ? 'Menos de 1 ano' : `${years} ano${years !== 1 ? 's' : ''}`;
+}
+
+function defaultDB() {
+  return {
+    users: [{ id: 'user_demo', name: 'Nathalie', username: 'nath', email: 'demo@petlife.app', password: '12345678', phone: '', city: 'São Paulo', state: 'SP', createdAt: isoDate(), photo: '' }],
+    pets: [{ id: 'pet_luna', ownerId: 'user_demo', name: 'Luna', species: 'Cachorro', breed: 'Golden Retriever', sex: 'Fêmea', birthDate: '2021-04-12', adoptionDate: '2021-06-20', color: 'Dourado', weight: 27.4, neutered: 'Sim', microchip: 'Sim', microchipNumber: 'BR-99881234', notes: 'Muito sociável e adora brincar com bolinhas.', photo: '' }],
+    records: [
+      { id:'rec1', ownerId:'user_demo', petId:'pet_luna', category:'vacina', title:'Vacina V10', date:'2026-06-10', description:'Reforço anual aplicado.', clinic:'Clínica Amigo Pet', vet:'Dra. Camila', returnDate:'2027-06-10', attachment:null, createdAt:Date.now() },
+      { id:'rec2', ownerId:'user_demo', petId:'pet_luna', category:'peso', title:'Pesagem mensal', date:'2026-07-10', description:'Peso estável.', weight:27.4, attachment:null, createdAt:Date.now() },
+      { id:'rec3', ownerId:'user_demo', petId:'pet_luna', category:'consulta', title:'Consulta de rotina', date:'2026-07-02', description:'Avaliação geral sem alterações relevantes.', clinic:'Vet Center', vet:'Dr. Bruno', returnDate:'2027-01-10', attachment:null, createdAt:Date.now() }
+    ],
+    reminders: [
+      { id:'rem1', ownerId:'user_demo', petId:'pet_luna', title:'Vermífugo', type:'medicamento', date:'2026-08-02', notes:'Administrar após alimentação.', done:false },
+      { id:'rem2', ownerId:'user_demo', petId:'pet_luna', title:'Retorno veterinário', type:'consulta', date:'2027-01-10', notes:'Levar exames anteriores.', done:false }
+    ],
+    posts: [
+      { id:'post1', ownerId:'user_demo', author:'Nathalie', username:'nath', text:'A Luna completou cinco anos e ganhou um passeio especial! 🐶💜', createdAt:Date.now()-7200000, likes:8, liked:false, comments:2 },
+      { id:'post2', ownerId:'user_2', author:'Rafael', username:'rafapets', text:'Alguém tem dicas para acostumar o gato com a caixa de transporte?', createdAt:Date.now()-21600000, likes:14, liked:false, comments:6 }
+    ],
+    reports: []
+  };
+}
+
+function loadDB() {
+  try { return JSON.parse(localStorage.getItem(DB_KEY)) || defaultDB(); }
+  catch { return defaultDB(); }
+}
+function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(state.db)); }
+
+const state = {
+  db: loadDB(),
+  userId: localStorage.getItem(SESSION_KEY),
+  route: 'home',
+  selectedPetId: null,
+  petTab: 'overview',
+  modal: null,
+  pendingFile: null
+};
+
+function currentUser() { return state.db.users.find(u => u.id === state.userId); }
+function myPets() { return state.db.pets.filter(p => p.ownerId === state.userId); }
+function petById(id) { return state.db.pets.find(p => p.id === id); }
+function petRecords(id) { return state.db.records.filter(r => r.petId === id).sort((a,b)=>b.date.localeCompare(a.date)); }
+function petReminders(id) { return state.db.reminders.filter(r => r.petId === id).sort((a,b)=>a.date.localeCompare(b.date)); }
+function ownerRecords() { return state.db.records.filter(r => r.ownerId === state.userId).sort((a,b)=>b.date.localeCompare(a.date)); }
+function ownerReminders() { return state.db.reminders.filter(r => r.ownerId === state.userId).sort((a,b)=>a.date.localeCompare(b.date)); }
+function petName(id) { return petById(id)?.name || 'Pet'; }
+
+function toast(msg) {
+  const el = $('#toast'); el.textContent = msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2400);
+}
+
+function registerSW() {
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+function render() {
+  const app = $('#app');
+  app.innerHTML = state.userId && currentUser() ? renderApp() : renderAuth();
+  bindEvents();
+  if (state.modal) renderModal();
+}
+
+function renderAuth() {
+  return `<div class="auth-shell"><div class="auth-card">
+    <div class="brand"><div class="brand-mark">🐾</div><div><h1>PetLife</h1><p>Histórico digital inteligente do seu pet</p></div></div>
+    <div class="tabs" style="margin-bottom:18px"><button class="tab active" data-auth-tab="login">Entrar</button><button class="tab" data-auth-tab="signup">Criar conta</button></div>
+    <form id="login-form" class="form-grid">
+      <div class="field full"><label>E-mail</label><input type="email" name="email" value="demo@petlife.app" required></div>
+      <div class="field full"><label>Senha</label><input type="password" name="password" value="12345678" required></div>
+      <div class="field full"><button class="btn primary full">Entrar</button></div>
+      <div class="field full"><button type="button" class="btn ghost full" data-demo-google>🔵 Continuar com Google</button></div>
+      <div class="field full"><button type="button" class="btn ghost full" data-demo-apple> Continuar com Apple</button></div>
+    </form>
+    <form id="signup-form" class="form-grid" hidden>
+      <div class="field full"><label>Nome completo</label><input name="name" required></div>
+      <div class="field full"><label>Nome de usuário</label><input name="username" required></div>
+      <div class="field full"><label>E-mail</label><input type="email" name="email" required></div>
+      <div class="field full"><label>Senha</label><input type="password" name="password" minlength="8" required><span class="helper">Mínimo de 8 caracteres.</span></div>
+      <div class="field full"><button class="btn primary full">Criar conta</button></div>
+    </form>
+    <p class="helper" style="text-align:center;margin-top:16px">Demonstração: demo@petlife.app / 12345678</p>
+  </div></div>`;
+}
+
+function renderApp() {
+  const u = currentUser();
+  return `<div class="app-shell"><main class="main">
+    <header class="topbar"><div><h1>${routeTitle()}</h1><p>${routeSubtitle()}</p></div><button class="avatar" data-route="profile">${u.photo ? `<img src="${u.photo}" alt="" class="avatar">` : esc(u.name?.[0] || 'U')}</button></header>
+    ${renderRoute()}
+  </main>
+  <button class="fab" data-add-menu aria-label="Adicionar">＋</button>
+  ${renderBottomNav()}</div>`;
+}
+function routeTitle() {
+  return ({home:'Início', pets:'Meus pets', community:'Comunidade', reminders:'Lembretes', profile:'Perfil e configurações', admin:'Painel administrativo', pet:'Perfil do pet'}[state.route] || 'PetLife');
+}
+function routeSubtitle() {
+  const u = currentUser();
+  return ({home:`Olá, ${u.name.split(' ')[0]}! Cuide de quem faz parte da família.`, pets:'Todos os seus pets em um só lugar.', community:'Compartilhe experiências com outros tutores.', reminders:'Não perca vacinas, consultas e medicamentos.', profile:'Gerencie sua conta e suas preferências.', admin:'Visão básica da operação do aplicativo.', pet:'Histórico completo e organizado.'}[state.route] || '');
+}
+function renderBottomNav() {
+  const items = [['home','⌂','Início'],['pets','🐾','Pets'],['community','💬','Comunidade'],['reminders','🔔','Lembretes'],['profile','⚙️','Perfil']];
+  return `<nav class="bottom-nav">${items.map(([r,i,l])=>`<button class="nav-btn ${state.route===r || (state.route==='pet'&&r==='pets')?'active':''}" data-route="${r}"><span>${i}</span><span>${l}</span></button>`).join('')}</nav>`;
+}
+function renderRoute() {
+  if (state.route === 'home') return renderHome();
+  if (state.route === 'pets') return renderPets();
+  if (state.route === 'pet') return renderPet();
+  if (state.route === 'community') return renderCommunity();
+  if (state.route === 'reminders') return renderReminders();
+  if (state.route === 'profile') return renderProfile();
+  if (state.route === 'admin') return renderAdmin();
+  return renderHome();
+}
+
+function renderHome() {
+  const pets = myPets(), reminders = ownerReminders().filter(r=>!r.done).slice(0,4), records = ownerRecords().slice(0,4);
+  return `<section class="hero"><div><h2>Todo o cuidado, em um só lugar.</h2><p>Organize documentos, saúde, fotos e memórias dos seus pets com uma linha do tempo inteligente.</p><div style="margin-top:16px"><button class="btn ghost" data-add-menu>＋ Adicionar informação</button></div></div><div class="paw">🐶</div></section>
+  <div class="section-title"><h2>Seus pets</h2><button class="link-btn" data-open-pet-form>＋ Novo pet</button></div>
+  ${pets.length ? `<div class="pet-grid">${pets.map(renderPetCard).join('')}</div>` : renderNoPets()}
+  <div class="grid two" style="margin-top:18px">
+    <section class="card"><div class="section-title" style="margin-top:0"><h2>Próximos lembretes</h2><button class="link-btn" data-route="reminders">Ver todos</button></div>${reminders.length ? `<div class="list">${reminders.map(renderReminderItem).join('')}</div>` : `<div class="empty"><div class="emoji">🔔</div>Nenhum lembrete pendente.</div>`}</section>
+    <section class="card"><div class="section-title" style="margin-top:0"><h2>Últimos eventos</h2><button class="link-btn" data-route="pets">Abrir pets</button></div>${records.length ? `<div class="list">${records.map(renderRecordListItem).join('')}</div>` : `<div class="empty"><div class="emoji">🗓️</div>Nenhum registro adicionado.</div>`}</section>
+  </div>
+  <div class="section-title"><h2>Comunidade</h2><button class="link-btn" data-route="community">Ver publicações</button></div>
+  <div class="grid two">${state.db.posts.slice(0,2).map(renderPost).join('')}</div>`;
+}
+function renderNoPets() {
+  return `<div class="card empty"><div class="emoji">🐾</div><h2>Cadastre seu primeiro pet</h2><p>Crie o perfil para começar a organizar fotos, documentos, vacinas e lembranças.</p><button class="btn primary" data-open-pet-form>Cadastrar meu primeiro pet</button></div>`;
+}
+function renderPetCard(p) {
+  return `<article class="card pet-card" data-open-pet="${p.id}">${p.photo ? `<img class="pet-photo" src="${p.photo}" alt="${esc(p.name)}">` : `<div class="pet-photo">${p.species==='Gato'?'🐱':'🐶'}</div>`}<div class="pet-card-body"><h3>${esc(p.name)}</h3><div class="meta">${esc(p.species)} · ${esc(p.breed || 'Raça não informada')}</div><div class="badges"><span class="badge">${getAge(p.birthDate)}</span><span class="badge">${p.weight ? `${p.weight} kg` : 'Peso não informado'}</span></div></div></article>`;
+}
+
+function renderPets() {
+  const pets = myPets();
+  return `<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><button class="btn primary" data-open-pet-form>＋ Cadastrar pet</button></div>${pets.length ? `<div class="pet-grid">${pets.map(renderPetCard).join('')}</div>` : renderNoPets()}`;
+}
+
+function renderPet() {
+  const p = petById(state.selectedPetId);
+  if (!p) { state.route='pets'; return renderPets(); }
+  const recs = petRecords(p.id), rems = petReminders(p.id), latestWeight = recs.find(r=>r.category==='peso')?.weight || p.weight;
+  const tabs = [['overview','Visão geral'],['timeline','Linha do tempo'],['docs','Documentos'],['health','Saúde'],['photos','Fotos'],['reminders','Lembretes']];
+  let body = '';
+  if (state.petTab==='overview') body = `<div class="grid two"><section class="card"><h3>Próximos lembretes</h3>${rems.filter(r=>!r.done).length?`<div class="list">${rems.filter(r=>!r.done).slice(0,4).map(renderReminderItem).join('')}</div>`:'<div class="empty">Nenhum lembrete.</div>'}</section><section class="card"><h3>Registros recentes</h3>${recs.length?`<div class="list">${recs.slice(0,4).map(renderRecordListItem).join('')}</div>`:'<div class="empty">Nenhum registro.</div>'}</section></div>`;
+  if (state.petTab==='timeline') body = renderTimeline(recs);
+  if (state.petTab==='docs') body = renderFilteredRecords(recs.filter(r=>['exame','receita','laudo','documento','vacina'].includes(r.category)), 'Nenhum documento enviado.');
+  if (state.petTab==='health') body = renderFilteredRecords(recs.filter(r=>['vacina','consulta','exame','receita','laudo','medicamento','cirurgia','peso'].includes(r.category)), 'Nenhum registro de saúde.');
+  if (state.petTab==='photos') body = renderPhotos(recs.filter(r=>r.category==='foto' || r.attachment?.type?.startsWith('image/')));
+  if (state.petTab==='reminders') body = `<div class="card"><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn secondary" data-open-reminder data-pet-id="${p.id}">＋ Novo lembrete</button></div>${rems.length?`<div class="list">${rems.map(renderReminderItem).join('')}</div>`:'<div class="empty">Nenhum lembrete.</div>'}</div>`;
+  return `<button class="link-btn" data-route="pets">← Voltar para pets</button>
+  <section class="card"><div class="profile-hero">${p.photo?`<img class="profile-photo" src="${p.photo}" alt="${esc(p.name)}">`:`<div class="profile-photo">${p.species==='Gato'?'🐱':'🐶'}</div>`}<div><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><h2 style="font-size:32px;margin:0">${esc(p.name)}</h2><p class="meta">${esc(p.species)} · ${esc(p.breed || 'Raça não informada')} · ${esc(p.sex || 'Sexo não informado')}</p></div><button class="icon-btn" data-edit-pet="${p.id}">✏️</button></div><div class="badges"><span class="badge">${getAge(p.birthDate)}</span><span class="badge">${latestWeight ? `${latestWeight} kg` : 'Peso não informado'}</span><span class="badge">Microchip: ${esc(p.microchip || 'Não informado')}</span></div><p>${esc(p.notes || '')}</p></div></div>
+  <div class="stat-grid"><div class="stat"><strong>${recs.length}</strong><small>registros</small></div><div class="stat"><strong>${recs.filter(r=>r.attachment).length}</strong><small>arquivos</small></div><div class="stat"><strong>${rems.filter(r=>!r.done).length}</strong><small>lembretes</small></div><div class="stat"><strong>${recs.filter(r=>r.category==='vacina').length}</strong><small>vacinas</small></div></div></section>
+  <div class="tabs" style="margin:16px 0">${tabs.map(([id,l])=>`<button class="tab ${state.petTab===id?'active':''}" data-pet-tab="${id}">${l}</button>`).join('')}</div>
+  ${body}`;
+}
+function renderTimeline(recs) {
+  if (!recs.length) return `<div class="card empty"><div class="emoji">🗓️</div>Nenhum evento registrado.</div>`;
+  return `<div class="card"><div class="timeline">${recs.map(r=>{const [icon,label]=categoryMap[r.category]||['📌','Registro'];return `<div class="timeline-item"><div class="timeline-card"><small class="meta">${formatDate(r.date)} · ${icon} ${label}</small><h4>${esc(r.title)}</h4>${r.description?`<p>${esc(r.description)}</p>`:''}${r.attachment?`<button class="link-btn" data-view-file="${r.id}">📎 ${esc(r.attachment.name)}</button>`:''}</div></div>`}).join('')}</div></div>`;
+}
+function renderFilteredRecords(recs, empty) { return recs.length ? `<div class="card"><div class="list">${recs.map(renderRecordListItem).join('')}</div></div>` : `<div class="card empty">${empty}</div>`; }
+function renderPhotos(recs) {
+  const imgs = recs.filter(r=>r.attachment?.dataUrl?.startsWith('data:image'));
+  if (!imgs.length) return `<div class="card empty"><div class="emoji">📸</div>Nenhuma foto adicionada.</div>`;
+  return `<div class="pet-grid">${imgs.map(r=>`<article class="card" style="padding:8px"><img src="${r.attachment.dataUrl}" alt="${esc(r.title)}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px"><div style="padding:8px"><strong>${esc(r.title)}</strong><small class="meta" style="display:block">${formatDate(r.date)}</small></div></article>`).join('')}</div>`;
+}
+
+function renderReminderItem(r) {
+  const done = r.done ? 'style="opacity:.55"' : '';
+  return `<div class="list-item" ${done}><div class="list-icon">${categoryMap[r.type]?.[0] || '🔔'}</div><div class="list-body"><strong>${esc(r.title)}</strong><small>${petName(r.petId)} · ${formatDate(r.date)}${r.notes?` · ${esc(r.notes)}`:''}</small></div><div class="list-actions"><button class="icon-btn" data-toggle-reminder="${r.id}" title="Concluir">${r.done?'↩️':'✓'}</button><button class="icon-btn" data-delete-reminder="${r.id}" title="Excluir">🗑️</button></div></div>`;
+}
+function renderRecordListItem(r) {
+  const [icon,label] = categoryMap[r.category] || ['📌','Registro'];
+  return `<div class="list-item"><div class="list-icon">${icon}</div><div class="list-body"><strong>${esc(r.title)}</strong><small>${petName(r.petId)} · ${label} · ${formatDate(r.date)}</small></div><div class="list-actions">${r.attachment?`<button class="icon-btn" data-view-file="${r.id}">👁️</button>`:''}<button class="icon-btn" data-delete-record="${r.id}">🗑️</button></div></div>`;
+}
+
+function renderCommunity() {
+  return `<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><button class="btn primary" data-new-post>＋ Nova publicação</button></div><div class="grid two">${state.db.posts.map(renderPost).join('')}</div>`;
+}
+function renderPost(p) {
+  const ago = new Intl.RelativeTimeFormat('pt-BR',{numeric:'auto'}).format(-Math.max(1,Math.round((Date.now()-p.createdAt)/3600000)),'hour');
+  return `<article class="card community-post"><div class="post-head"><div class="avatar">${esc(p.author?.[0]||'U')}</div><div><strong>${esc(p.author)}</strong><div class="meta">@${esc(p.username)} · ${ago}</div></div></div><div>${esc(p.text)}</div><div class="post-actions"><button data-like-post="${p.id}">${p.liked?'💜':'🤍'} ${p.likes}</button><button>💬 ${p.comments}</button><button data-report-post="${p.id}">⚑ Denunciar</button></div></article>`;
+}
+
+function renderReminders() {
+  const reminders = ownerReminders();
+  return `<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><button class="btn primary" data-open-reminder>＋ Novo lembrete</button></div><section class="card">${reminders.length?`<div class="list">${reminders.map(renderReminderItem).join('')}</div>`:'<div class="empty"><div class="emoji">🔔</div>Nenhum lembrete criado.</div>'}</section>`;
+}
+
+function renderProfile() {
+  const u = currentUser();
+  return `<div class="grid two"><section class="card"><h2>Dados do tutor</h2><form id="profile-form" class="form-grid"><div class="field full"><label>Nome completo</label><input name="name" value="${esc(u.name)}" required></div><div class="field full"><label>Nome de usuário</label><input name="username" value="${esc(u.username)}" required></div><div class="field full"><label>E-mail</label><input type="email" name="email" value="${esc(u.email)}" required></div><div class="field"><label>Telefone</label><input name="phone" value="${esc(u.phone||'')}"></div><div class="field"><label>Cidade</label><input name="city" value="${esc(u.city||'')}"></div><div class="field"><label>Estado</label><input name="state" maxlength="2" value="${esc(u.state||'')}"></div><div class="field"><label>Conta criada em</label><input value="${formatDate(u.createdAt)}" disabled></div><div class="field full"><button class="btn primary">Salvar alterações</button></div></form></section>
+  <section class="card"><h2>Conta e privacidade</h2><div class="list"><div class="list-item"><div class="list-icon">🔐</div><div class="list-body"><strong>Segurança</strong><small>Altere sua senha e revise os acessos.</small></div></div><div class="list-item"><div class="list-icon">📥</div><div class="list-body"><strong>Exportar meus dados</strong><small>Baixe uma cópia do conteúdo do aplicativo.</small></div><button class="icon-btn" data-export>⬇️</button></div><div class="list-item"><div class="list-icon">🛡️</div><div class="list-body"><strong>Painel administrativo</strong><small>Área básica de moderação e indicadores.</small></div><button class="icon-btn" data-route="admin">→</button></div></div><div style="display:grid;gap:10px;margin-top:18px"><button class="btn ghost" data-logout>Sair da conta</button><button class="btn danger" data-delete-account>Excluir minha conta</button></div><div class="notice" style="margin-top:16px">Esta versão é um protótipo local. Em produção, autenticação, armazenamento e exclusão deverão ocorrer em backend seguro.</div></section></div>`;
+}
+
+function renderAdmin() {
+  const users=state.db.users.length, pets=state.db.pets.length, records=state.db.records.length, reports=state.db.reports.length;
+  return `<button class="link-btn" data-route="profile">← Voltar</button><div class="kpis"><div class="kpi"><strong>${users}</strong><span>usuários</span></div><div class="kpi"><strong>${pets}</strong><span>pets cadastrados</span></div><div class="kpi"><strong>${records}</strong><span>registros</span></div><div class="kpi"><strong>${reports}</strong><span>denúncias</span></div></div><div class="grid two" style="margin-top:16px"><section class="card"><h2>Denúncias recentes</h2>${reports?`<div class="list">${state.db.reports.map(r=>`<div class="list-item"><div class="list-icon">⚑</div><div class="list-body"><strong>Publicação denunciada</strong><small>${formatDate(r.date)} · motivo: ${esc(r.reason)}</small></div></div>`).join('')}</div>`:'<div class="empty">Nenhuma denúncia.</div>'}</section><section class="card"><h2>Ações administrativas</h2><div class="list"><div class="list-item"><div class="list-icon">👥</div><div class="list-body"><strong>Usuários</strong><small>Visualização básica de cadastros.</small></div></div><div class="list-item"><div class="list-icon">🧹</div><div class="list-body"><strong>Moderação</strong><small>Revisão de conteúdo denunciado.</small></div></div><div class="list-item"><div class="list-icon">📊</div><div class="list-body"><strong>Indicadores</strong><small>Volume de pets, documentos e registros.</small></div></div></div></section></div>`;
+}
+
+function bindEvents() {
+  $$('[data-route]').forEach(b=>b.addEventListener('click',()=>{state.route=b.dataset.route; if(state.route!=='pet')state.selectedPetId=null; render();}));
+  $$('[data-open-pet]').forEach(b=>b.addEventListener('click',()=>{state.selectedPetId=b.dataset.openPet;state.route='pet';state.petTab='overview';render();}));
+  $$('[data-pet-tab]').forEach(b=>b.addEventListener('click',()=>{state.petTab=b.dataset.petTab;render();}));
+  $$('[data-open-pet-form]').forEach(b=>b.addEventListener('click',()=>openPetModal()));
+  $$('[data-edit-pet]').forEach(b=>b.addEventListener('click',()=>openPetModal(petById(b.dataset.editPet))));
+  $$('[data-add-menu]').forEach(b=>b.addEventListener('click',openAddMenu));
+  $$('[data-open-reminder]').forEach(b=>b.addEventListener('click',()=>openReminderModal(b.dataset.petId||'')));
+  $$('[data-toggle-reminder]').forEach(b=>b.addEventListener('click',()=>toggleReminder(b.dataset.toggleReminder)));
+  $$('[data-delete-reminder]').forEach(b=>b.addEventListener('click',()=>deleteReminder(b.dataset.deleteReminder)));
+  $$('[data-delete-record]').forEach(b=>b.addEventListener('click',()=>deleteRecord(b.dataset.deleteRecord)));
+  $$('[data-view-file]').forEach(b=>b.addEventListener('click',()=>viewFile(b.dataset.viewFile)));
+  $$('[data-like-post]').forEach(b=>b.addEventListener('click',()=>likePost(b.dataset.likePost)));
+  $$('[data-report-post]').forEach(b=>b.addEventListener('click',()=>reportPost(b.dataset.reportPost)));
+  $$('[data-new-post]').forEach(b=>b.addEventListener('click',openPostModal));
+  $('[data-logout]')?.addEventListener('click',()=>{localStorage.removeItem(SESSION_KEY);state.userId=null;state.route='home';render();});
+  $('[data-delete-account]')?.addEventListener('click',deleteAccount);
+  $('[data-export]')?.addEventListener('click',exportData);
+  $('#profile-form')?.addEventListener('submit',saveProfile);
+
+  $$('[data-auth-tab]').forEach(b=>b.addEventListener('click',()=>{
+    $$('[data-auth-tab]').forEach(x=>x.classList.toggle('active',x===b));
+    $('#login-form').hidden=b.dataset.authTab!=='login'; $('#signup-form').hidden=b.dataset.authTab!=='signup';
+  }));
+  $('#login-form')?.addEventListener('submit',login);
+  $('#signup-form')?.addEventListener('submit',signup);
+  $('[data-demo-google]')?.addEventListener('click',demoSocialLogin);
+  $('[data-demo-apple]')?.addEventListener('click',demoSocialLogin);
+}
+
+function login(e) {
+  e.preventDefault(); const f=new FormData(e.target);
+  const u=state.db.users.find(x=>x.email.toLowerCase()===String(f.get('email')).toLowerCase()&&x.password===f.get('password'));
+  if(!u) return toast('E-mail ou senha inválidos.');
+  state.userId=u.id;localStorage.setItem(SESSION_KEY,u.id);render();
+}
+function signup(e) {
+  e.preventDefault(); const f=new FormData(e.target); const email=String(f.get('email')).trim().toLowerCase(), username=String(f.get('username')).trim();
+  if(state.db.users.some(u=>u.email===email)) return toast('Este e-mail já está cadastrado.');
+  if(state.db.users.some(u=>u.username.toLowerCase()===username.toLowerCase())) return toast('Nome de usuário indisponível.');
+  const u={id:uid('user'),name:String(f.get('name')).trim(),username,email,password:String(f.get('password')),phone:'',city:'',state:'',createdAt:isoDate(),photo:''};
+  state.db.users.push(u);saveDB();state.userId=u.id;localStorage.setItem(SESSION_KEY,u.id);render();
+}
+function demoSocialLogin(){state.userId='user_demo';localStorage.setItem(SESSION_KEY,state.userId);render();toast('Login social simulado no protótipo.');}
+
+function renderModal(){
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop"><div class="modal">${state.modal}</div></div>`);
+  $('.modal-backdrop').addEventListener('click',e=>{if(e.target.classList.contains('modal-backdrop'))closeModal();});
+  $('[data-close-modal]')?.addEventListener('click',closeModal);
+}
+function closeModal(){state.modal=null;state.pendingFile=null;$('.modal-backdrop')?.remove();}
+
+function openPetModal(pet=null){
+  state.modal=`<div class="modal-head"><h2>${pet?'Editar pet':'Cadastrar pet'}</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="pet-form" class="form-grid">
+    <input type="hidden" name="id" value="${pet?.id||''}">
+    <div class="field"><label>Nome *</label><input name="name" value="${esc(pet?.name||'')}" required></div><div class="field"><label>Espécie *</label><select name="species" required><option value="">Selecione</option>${['Cachorro','Gato','Ave','Réptil','Roedor','Outro'].map(x=>`<option ${pet?.species===x?'selected':''}>${x}</option>`).join('')}</select></div>
+    <div class="field"><label>Raça</label><input name="breed" value="${esc(pet?.breed||'')}"></div><div class="field"><label>Sexo</label><select name="sex"><option value="">Não informado</option>${['Macho','Fêmea'].map(x=>`<option ${pet?.sex===x?'selected':''}>${x}</option>`).join('')}</select></div>
+    <div class="field"><label>Data de nascimento</label><input type="date" name="birthDate" value="${pet?.birthDate||''}"></div><div class="field"><label>Data de adoção</label><input type="date" name="adoptionDate" value="${pet?.adoptionDate||''}"></div>
+    <div class="field"><label>Cor</label><input name="color" value="${esc(pet?.color||'')}"></div><div class="field"><label>Peso atual (kg)</label><input type="number" step="0.01" name="weight" value="${pet?.weight||''}"></div>
+    <div class="field"><label>Castrado</label><select name="neutered">${['Não informado','Sim','Não'].map(x=>`<option ${pet?.neutered===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Possui microchip</label><select name="microchip">${['Não informado','Sim','Não'].map(x=>`<option ${pet?.microchip===x?'selected':''}>${x}</option>`).join('')}</select></div>
+    <div class="field full"><label>Número do microchip</label><input name="microchipNumber" value="${esc(pet?.microchipNumber||'')}"></div>
+    <div class="field full"><label>Foto principal</label><input type="file" name="photoFile" accept="image/jpeg,image/png"></div>
+    <div class="field full"><label>Observações gerais</label><textarea name="notes">${esc(pet?.notes||'')}</textarea></div>
+    <div class="field full"><button class="btn primary">Salvar pet</button></div>${pet?`<div class="field full"><button type="button" class="btn danger" data-delete-pet="${pet.id}">Excluir pet</button></div>`:''}
+  </form>`;
+  renderModal();
+  $('#pet-form').addEventListener('submit',savePet);
+  $('[data-delete-pet]')?.addEventListener('click',()=>deletePet(pet.id));
+}
+async function fileToDataUrl(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+async function savePet(e){
+  e.preventDefault();const f=new FormData(e.target),id=String(f.get('id')||''),old=id?petById(id):null;let photo=old?.photo||'';const file=f.get('photoFile');
+  if(file&&file.size){if(file.size>5*1024*1024)return toast('A foto deve ter até 5 MB.');photo=await fileToDataUrl(file);}
+  const pet={id:id||uid('pet'),ownerId:state.userId,name:String(f.get('name')).trim(),species:String(f.get('species')),breed:String(f.get('breed')||''),sex:String(f.get('sex')||''),birthDate:String(f.get('birthDate')||''),adoptionDate:String(f.get('adoptionDate')||''),color:String(f.get('color')||''),weight:Number(f.get('weight'))||null,neutered:String(f.get('neutered')),microchip:String(f.get('microchip')),microchipNumber:String(f.get('microchipNumber')||''),notes:String(f.get('notes')||''),photo};
+  if(old) Object.assign(old,pet); else state.db.pets.push(pet); saveDB();closeModal();state.selectedPetId=pet.id;state.route='pet';render();toast('Pet salvo com sucesso.');
+}
+function deletePet(id){
+  if(!confirm('Excluir este pet também removerá seus registros, documentos e lembretes. Deseja continuar?'))return;
+  state.db.pets=state.db.pets.filter(p=>p.id!==id);state.db.records=state.db.records.filter(r=>r.petId!==id);state.db.reminders=state.db.reminders.filter(r=>r.petId!==id);saveDB();closeModal();state.route='pets';state.selectedPetId=null;render();toast('Pet excluído.');
+}
+
+function openAddMenu(){
+  const pets=myPets(); if(!pets.length){openPetModal();return;}
+  state.modal=`<div class="modal-head"><h2>Adicionar informação</h2><button class="icon-btn" data-close-modal>✕</button></div><div class="grid three">${Object.entries(categoryMap).map(([id,[icon,label]])=>`<button class="btn ghost" data-category="${id}" style="min-height:86px;flex-direction:column"><span style="font-size:28px">${icon}</span>${label}</button>`).join('')}</div>`;
+  renderModal();$$('[data-category]').forEach(b=>b.addEventListener('click',()=>openRecordModal(b.dataset.category)));
+}
+function openRecordModal(category='evento'){
+  $('.modal-backdrop')?.remove(); const [icon,label]=categoryMap[category]||['📌','Registro'];
+  state.modal=`<div class="modal-head"><h2>${icon} Novo registro</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="record-form" class="form-grid">
+    <input type="hidden" name="category" value="${category}"><div class="field"><label>Pet *</label><select name="petId" required>${myPets().map(p=>`<option value="${p.id}" ${p.id===state.selectedPetId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Categoria</label><input value="${label}" disabled></div>
+    <div class="field full"><label>Título *</label><input name="title" required placeholder="Ex.: Vacina antirrábica"></div><div class="field"><label>Data do evento *</label><input type="date" name="date" value="${isoDate()}" required></div><div class="field"><label>Data de retorno</label><input type="date" name="returnDate"></div>
+    ${category==='peso'?'<div class="field"><label>Peso (kg) *</label><input type="number" step="0.01" name="weight" required></div>':''}
+    <div class="field"><label>Clínica</label><input name="clinic"></div><div class="field"><label>Veterinário</label><input name="vet"></div><div class="field full"><label>Descrição</label><textarea name="description"></textarea></div>
+    <div class="field full"><label>Foto ou documento</label><input id="record-file" type="file" name="attachment" accept="image/jpeg,image/png,application/pdf"><span class="helper">Imagens de até 5 MB e PDFs de até 10 MB.</span></div>
+    <div class="field full"><label><input type="checkbox" name="createReminder"> Criar lembrete usando a data de retorno</label></div>
+    <div id="ai-preview" class="field full"></div><div class="field full"><button class="btn primary">Salvar registro</button></div>
+  </form>`;
+  renderModal();$('#record-file').addEventListener('change',simulateAI);$('#record-form').addEventListener('submit',saveRecord);
+}
+async function simulateAI(e){
+  const file=e.target.files[0];state.pendingFile=file||null;const box=$('#ai-preview');if(!file){box.innerHTML='';return;}
+  const ext=file.name.split('.').pop().toLowerCase(), guess=guessDoc(file.name);
+  box.innerHTML=`<div class="ai-box"><h4>✨ Organização inteligente</h4><p>A IA classificou este arquivo como <strong>${guess}</strong> e identificou o nome <strong>${esc(file.name.replace(/\.[^.]+$/,''))}</strong>.</p><p class="helper">Resultado simulado para o protótipo. Em produção, a extração deverá usar OCR/IA e sempre exigir confirmação do usuário.</p></div>`;
+}
+function guessDoc(name){const n=name.toLowerCase();if(n.includes('vac'))return 'comprovante de vacina';if(n.includes('rece'))return 'receita';if(n.includes('exam'))return 'exame';if(n.includes('laudo'))return 'laudo';return 'documento do pet';}
+async function saveRecord(e){
+  e.preventDefault();const f=new FormData(e.target),file=f.get('attachment');let attachment=null;
+  if(file&&file.size){const limit=file.type==='application/pdf'?10:5;if(file.size>limit*1024*1024)return toast(`O arquivo deve ter até ${limit} MB.`);attachment={name:file.name,type:file.type,size:file.size,dataUrl:await fileToDataUrl(file)};}
+  const r={id:uid('rec'),ownerId:state.userId,petId:String(f.get('petId')),category:String(f.get('category')),title:String(f.get('title')).trim(),date:String(f.get('date')),description:String(f.get('description')||''),clinic:String(f.get('clinic')||''),vet:String(f.get('vet')||''),returnDate:String(f.get('returnDate')||''),weight:Number(f.get('weight'))||null,attachment,aiExtraction:attachment?{status:'confirmado',classification:guessDoc(attachment.name),processedAt:Date.now()}:null,createdAt:Date.now()};
+  state.db.records.push(r);if(r.category==='peso'&&r.weight){const p=petById(r.petId);if(p)p.weight=r.weight;}
+  if(f.get('createReminder')&&r.returnDate) state.db.reminders.push({id:uid('rem'),ownerId:state.userId,petId:r.petId,title:`Retorno: ${r.title}`,type:r.category,date:r.returnDate,notes:'Criado a partir de um registro.',done:false});
+  saveDB();closeModal();state.selectedPetId=r.petId;state.route='pet';state.petTab='timeline';render();toast('Registro salvo e organizado.');
+}
+function deleteRecord(id){if(!confirm('Excluir este registro?'))return;state.db.records=state.db.records.filter(r=>r.id!==id);saveDB();render();toast('Registro excluído.');}
+function viewFile(id){const r=state.db.records.find(x=>x.id===id);if(!r?.attachment)return;const w=window.open();if(r.attachment.type==='application/pdf')w.document.write(`<iframe src="${r.attachment.dataUrl}" style="border:0;width:100vw;height:100vh"></iframe>`);else w.document.write(`<img src="${r.attachment.dataUrl}" style="max-width:100%;display:block;margin:auto">`);}
+
+function openReminderModal(petId=''){
+  state.modal=`<div class="modal-head"><h2>Novo lembrete</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="reminder-form" class="form-grid"><div class="field"><label>Pet *</label><select name="petId" required>${myPets().map(p=>`<option value="${p.id}" ${p.id===petId?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Tipo</label><select name="type">${['vacina','consulta','exame','medicamento','evento'].map(x=>`<option value="${x}">${categoryMap[x]?.[1]||x}</option>`).join('')}</select></div><div class="field full"><label>Título *</label><input name="title" required></div><div class="field"><label>Data *</label><input type="date" name="date" required></div><div class="field full"><label>Observações</label><textarea name="notes"></textarea></div><div class="field full"><button class="btn primary">Criar lembrete</button></div></form>`;
+  renderModal();$('#reminder-form').addEventListener('submit',saveReminder);
+}
+function saveReminder(e){e.preventDefault();const f=new FormData(e.target);state.db.reminders.push({id:uid('rem'),ownerId:state.userId,petId:String(f.get('petId')),title:String(f.get('title')).trim(),type:String(f.get('type')),date:String(f.get('date')),notes:String(f.get('notes')||''),done:false});saveDB();closeModal();render();toast('Lembrete criado.');}
+function toggleReminder(id){const r=state.db.reminders.find(x=>x.id===id);if(r)r.done=!r.done;saveDB();render();}
+function deleteReminder(id){if(!confirm('Excluir este lembrete?'))return;state.db.reminders=state.db.reminders.filter(r=>r.id!==id);saveDB();render();}
+
+function openPostModal(){state.modal=`<div class="modal-head"><h2>Nova publicação</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="post-form" class="form-grid"><div class="field full"><label>Compartilhe algo com a comunidade</label><textarea name="text" required maxlength="600" placeholder="Conte uma experiência, faça uma pergunta ou compartilhe uma conquista do seu pet."></textarea></div><div class="field full"><button class="btn primary">Publicar</button></div></form>`;renderModal();$('#post-form').addEventListener('submit',savePost);}
+function savePost(e){e.preventDefault();const f=new FormData(e.target),u=currentUser();state.db.posts.unshift({id:uid('post'),ownerId:state.userId,author:u.name,username:u.username,text:String(f.get('text')).trim(),createdAt:Date.now(),likes:0,liked:false,comments:0});saveDB();closeModal();render();toast('Publicação criada.');}
+function likePost(id){const p=state.db.posts.find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes+=p.liked?1:-1;saveDB();render();}
+function reportPost(id){const reason=prompt('Informe brevemente o motivo da denúncia:');if(!reason)return;state.db.reports.push({id:uid('report'),postId:id,reporterId:state.userId,reason,date:isoDate()});saveDB();toast('Denúncia enviada para análise.');}
+
+function saveProfile(e){e.preventDefault();const f=new FormData(e.target),u=currentUser();const email=String(f.get('email')).trim().toLowerCase(),username=String(f.get('username')).trim();if(state.db.users.some(x=>x.id!==u.id&&x.email===email))return toast('E-mail já utilizado.');if(state.db.users.some(x=>x.id!==u.id&&x.username.toLowerCase()===username.toLowerCase()))return toast('Nome de usuário indisponível.');Object.assign(u,{name:String(f.get('name')).trim(),username,email,phone:String(f.get('phone')||''),city:String(f.get('city')||''),state:String(f.get('state')||'').toUpperCase()});saveDB();render();toast('Perfil atualizado.');}
+function exportData(){const blob=new Blob([JSON.stringify({user:currentUser(),pets:myPets(),records:ownerRecords(),reminders:ownerReminders()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='petlife-meus-dados.json';a.click();URL.revokeObjectURL(a.href);}
+function deleteAccount(){if(!confirm('Esta ação excluirá sua conta, pets, registros, documentos e lembretes. Deseja continuar?'))return;const id=state.userId,petIds=state.db.pets.filter(p=>p.ownerId===id).map(p=>p.id);state.db.users=state.db.users.filter(u=>u.id!==id);state.db.pets=state.db.pets.filter(p=>p.ownerId!==id);state.db.records=state.db.records.filter(r=>r.ownerId!==id&&!petIds.includes(r.petId));state.db.reminders=state.db.reminders.filter(r=>r.ownerId!==id&&!petIds.includes(r.petId));state.db.posts=state.db.posts.filter(p=>p.ownerId!==id);saveDB();localStorage.removeItem(SESSION_KEY);state.userId=null;render();}
+
+registerSW();
+render();
+
+  </script>
+</body>
+</html>
