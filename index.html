@@ -1,12 +1,13 @@
 <!doctype html>
-<!-- PETLIFE BUILD: AUTH-AJUSTES-27-07-V3 | Supabase cloud | verified -->
+<!-- BOOPY BUILD: PRODUTO-V4-27-07 | Supabase cloud | verified -->
+<!-- PENDÊNCIA TÉCNICA: renomear posteriormente o repositório petlife-beta, a URL do GitHub Pages, as URLs de redirecionamento do Supabase e os nomes técnicos relacionados para Boopy. -->
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#6d4aff" />
-  <meta name="description" content="PetLife — histórico digital inteligente da vida do seu pet." />
-  <title>PetLife</title>
+  <meta name="description" content="Boopy — toda a vida do seu pet, em um só lugar." />
+  <title>Boopy</title>
   <style>
 :root {
   --bg: #f7f5fc;
@@ -56,15 +57,15 @@ a { color: inherit; }
   padding: 28px;
   backdrop-filter: blur(12px);
 }
-.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-.brand-mark {
-  width: 52px; height: 52px; border-radius: 18px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  color: white; font-size: 28px; box-shadow: 0 10px 24px rgba(109,74,255,.28);
-}
-.brand h1 { margin: 0; font-size: 28px; }
-.brand p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.brand { display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:22px; }
+.brand-logo { width:min(100%,330px); max-height:235px; object-fit:contain; display:block; border-radius:18px; }
+.brand h1 { margin:8px 0 0; font-size:28px; }
+.brand p { margin:2px 0 0; color:var(--muted); font-size:14px; }
+.loading-logo { width:min(100%,260px); max-height:190px; object-fit:contain; display:block; margin:0 auto 12px; }
+.topbar-title { display:flex; align-items:center; gap:12px; min-width:0; }
+.topbar-logo { width:72px; height:50px; object-fit:contain; background:#fff; border:1px solid var(--border); border-radius:14px; padding:3px; flex:0 0 auto; }
+.topbar-copy { min-width:0; }
+
 
 .main {
   width: min(100%, 1180px);
@@ -184,6 +185,42 @@ a { color: inherit; }
 .auth-divider { display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px; margin:2px 0; }
 .auth-divider:before, .auth-divider:after { content:""; height:1px; background:var(--border); flex:1; }
 
+
+.macro-list { display:grid; gap:18px; }
+.macro-section { border:1px solid var(--border); border-radius:20px; padding:15px; background:#fcfbff; }
+.macro-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:11px; }
+.macro-head h3 { margin:0; font-size:16px; }
+.category-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.category-card { min-height:92px; border:1px solid var(--border); border-radius:17px; background:#fff; padding:12px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; font-weight:750; color:var(--text); text-align:center; }
+.category-card:hover { border-color:var(--primary-2); background:var(--surface-2); transform:translateY(-1px); }
+.category-card .category-icon { font-size:28px; }
+.category-card.coming-soon { opacity:.62; border-style:dashed; }
+.category-card.coming-soon:hover { transform:none; background:#fff; border-color:var(--border); }
+.soon-badge { font-size:10px; color:var(--primary); background:var(--surface-2); border-radius:999px; padding:4px 7px; }
+.modal-title-group { display:flex; align-items:center; gap:8px; min-width:0; }
+.back-btn { border:0; width:38px; height:38px; border-radius:12px; background:var(--surface-2); display:grid; place-items:center; color:var(--primary); font-size:19px; flex:0 0 auto; }
+.info-hint { display:flex; gap:8px; align-items:flex-start; border:1px solid #ddd5ff; background:#f8f6ff; color:#55467f; border-radius:14px; padding:10px 12px; font-size:12px; line-height:1.45; }
+.info-hint .info-icon { width:20px; height:20px; flex:0 0 auto; border-radius:50%; background:var(--primary); color:#fff; display:grid; place-items:center; font-weight:900; }
+.crop-editor { display:none; border:1px solid var(--border); background:#faf9fd; border-radius:18px; padding:14px; gap:14px; }
+.crop-editor.active { display:grid; grid-template-columns:minmax(220px,320px) 1fr; align-items:center; }
+.crop-canvas { width:100%; max-width:320px; aspect-ratio:1; border-radius:22px; background:#ece8f5; box-shadow:inset 0 0 0 2px rgba(109,74,255,.18); display:block; }
+.crop-controls { display:grid; gap:11px; }
+.crop-controls label { display:grid; gap:6px; font-weight:700; font-size:13px; }
+.crop-controls input[type=range] { width:100%; accent-color:var(--primary); }
+.money-value { font-variant-numeric:tabular-nums; }
+.finance-summary { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+.finance-pill { border:1px solid var(--border); background:#faf9fd; border-radius:15px; padding:10px 12px; }
+.finance-pill strong { display:block; font-size:18px; }
+.calendar-actions { display:grid; gap:10px; margin-top:16px; }
+.calendar-actions .btn { width:100%; }
+
+@media (max-width:760px) {
+  .category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .crop-editor.active { grid-template-columns:1fr; }
+  .crop-canvas { margin:auto; }
+  .topbar-logo { width:58px; height:42px; }
+}
+
 .modal-backdrop {
   position:fixed; inset:0; z-index:100; background:rgba(20,15,32,.48); backdrop-filter:blur(5px);
   display:grid; place-items:center; padding:18px;
@@ -267,6 +304,10 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const SUPABASE_URL = 'https://hvynreyyipjyzscfsxrf.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_zuOv4EYJJn6W6Yf9AoeHnQ_pAnW_GZs';
 const SITE_URL = 'https://nathaliecicari.github.io/petlife-beta/';
+const BOOPY_LOGO_DATA = 'data:image/webp;base64,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';
+const BOOPY_WORDMARK_DATA = 'data:image/webp;base64,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';
+// PENDÊNCIA: manter o endereço técnico petlife-beta durante a beta e renomear repositório, URL e redirects do Supabase em etapa controlada.
+const TECHNICAL_RENAME_PENDING = true;
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 });
@@ -276,21 +317,32 @@ const categoryMap = {
   exame: ['🧪', 'Exame'], receita: ['🧾', 'Receita'], laudo: ['📑', 'Laudo'],
   medicamento: ['💊', 'Medicamento'], cirurgia: ['🏥', 'Cirurgia'], peso: ['⚖️', 'Alteração de peso'],
   comportamento: ['🐾', 'Comportamento'], alimentacao: ['🥣', 'Alimentação'], evento: ['✨', 'Evento importante'],
-  documento: ['📄', 'Outro documento']
+  financas: ['💰', 'Finanças'], comprinhas: ['🛍️', 'Comprinhas'], documento: ['📎', 'Outro registro']
 };
+const routineCategories = new Set(['foto', 'comportamento', 'alimentacao', 'evento']);
+const healthCategories = new Set(['vacina', 'consulta', 'exame', 'receita', 'laudo', 'medicamento', 'cirurgia', 'peso']);
+const macroCategories = [
+  { id: 'rotina', title: 'Rotina', icon: '🌿', items: ['foto', 'comportamento', 'alimentacao', 'evento'] },
+  { id: 'saude', title: 'Saúde', icon: '🩺', items: ['vacina', 'consulta', 'exame', 'receita', 'laudo', 'medicamento', 'cirurgia', 'peso'] },
+  { id: 'financas', title: 'Finanças', icon: '💜', items: ['financas', 'comprinhas'] },
+  { id: 'outros', title: 'Outros', icon: '✨', items: ['documento'] }
+];
+const expenseTypeSuggestions = ['Alimentação', 'Veterinário', 'Medicamento', 'Vacina', 'Exame', 'Higiene', 'Banho e tosa', 'Acessório', 'Brinquedo', 'Plano de saúde', 'Transporte', 'Outros'];
 
 const state = {
   loading: true,
   session: null,
   authUser: null,
-  db: { users: [], pets: [], records: [], reminders: [], posts: [], reports: [] },
+  db: { users: [], pets: [], records: [], expenses: [], reminders: [], posts: [], reports: [] },
   likedPostIds: new Set(),
   route: 'home',
   selectedPetId: null,
   petTab: 'overview',
   modal: null,
   adminStats: null,
-  authTab: 'login'
+  authTab: 'login',
+  features: { expensesAvailable: true },
+  petPhotoEditor: null
 };
 
 function isoDate(d = new Date()) { return new Date(d).toISOString().slice(0, 10); }
@@ -324,6 +376,7 @@ function friendlyError(error, fallback = 'Ocorreu um erro. Tente novamente.') {
   if (/Email rate limit exceeded/i.test(msg)) return 'Muitos e-mails foram solicitados. Aguarde alguns minutos e tente novamente.';
   if (/For security purposes/i.test(msg)) return 'Aguarde alguns segundos antes de solicitar outro e-mail.';
   if (/duplicate key.*username/i.test(msg)) return 'Este nome de usuário já está em uso.';
+  if (/column .*source_record_id|column .*source_expense_id|pet_expenses.*does not exist|relation .*pet_expenses/i.test(msg)) return 'A atualização financeira ainda não foi aplicada no Supabase. Execute o arquivo SQL de migração.';
   if (/Failed to fetch/i.test(msg)) return 'Não foi possível conectar à nuvem. Verifique sua internet.';
   return msg || fallback;
 }
@@ -334,6 +387,16 @@ function petRecords(id) { return state.db.records.filter(r => r.petId === id).so
 function petReminders(id) { return state.db.reminders.filter(r => r.petId === id).sort((a, b) => a.date.localeCompare(b.date)); }
 function ownerRecords() { return [...state.db.records].sort((a, b) => b.date.localeCompare(a.date)); }
 function ownerReminders() { return [...state.db.reminders].sort((a, b) => a.date.localeCompare(b.date)); }
+function petExpenses(id) { return state.db.expenses.filter(x => x.petId === id).sort((a, b) => b.date.localeCompare(a.date)); }
+function ownerExpenses() { return [...state.db.expenses].sort((a, b) => b.date.localeCompare(a.date)); }
+function formatCurrency(value) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value) || 0); }
+function parseMoney(value) {
+  const raw = String(value || '').trim().replace(/\s/g, '');
+  if (!raw) return NaN;
+  const normalized = raw.includes(',') ? raw.replace(/\./g, '').replace(',', '.') : raw;
+  return Number(normalized.replace(/[^0-9.-]/g, ''));
+}
+function isMissingExpenseTable(error) { return error?.code === '42P01' || /pet_expenses.*does not exist|relation .*pet_expenses/i.test(error?.message || ''); }
 function petName(id) { return petById(id)?.name || 'Pet'; }
 function toast(msg) {
   const el = $('#toast');
@@ -473,6 +536,30 @@ function mapReminder(row) {
     createdAt: row.created_at
   };
 }
+function mapExpense(row) {
+  return {
+    id: row.id,
+    ownerId: row.owner_id,
+    petId: row.pet_id,
+    kind: row.expense_kind || 'finance',
+    title: row.title,
+    type: row.expense_type,
+    amount: Number(row.amount) || 0,
+    date: row.expense_date,
+    description: row.description || '',
+    merchant: row.merchant || '',
+    paymentMethod: row.payment_method || '',
+    nextPurchaseDate: row.next_purchase_date || '',
+    createdAt: row.created_at,
+    attachment: row.attachment_path ? {
+      bucket: row.attachment_bucket || 'pet-files',
+      path: row.attachment_path,
+      name: row.attachment_name || 'Comprovante',
+      type: row.attachment_mime || '',
+      size: row.attachment_size || 0
+    } : null
+  };
+}
 function mapPost(row) {
   return {
     id: row.id,
@@ -512,14 +599,17 @@ async function loadData({ quiet = false } = {}) {
   if (!quiet) { state.loading = true; render(); }
   try {
     const profileRow = await ensureProfile();
-    const [petsRes, recordsRes, remindersRes, postsRes, likesRes] = await Promise.all([
+    const [petsRes, recordsRes, expensesRes, remindersRes, postsRes, likesRes] = await Promise.all([
       sb.from('pets').select('*').order('created_at', { ascending: true }),
       sb.from('pet_records').select('*, attachments(*)').order('event_date', { ascending: false }),
+      sb.from('pet_expenses').select('*').order('expense_date', { ascending: false }),
       sb.from('reminders').select('*').order('due_date', { ascending: true }),
       sb.from('community_posts').select('*').order('created_at', { ascending: false }).limit(100),
       sb.from('community_likes').select('post_id').eq('user_id', state.authUser.id)
     ]);
     for (const result of [petsRes, recordsRes, remindersRes, postsRes, likesRes]) if (result.error) throw result.error;
+    if (expensesRes.error && !isMissingExpenseTable(expensesRes.error)) throw expensesRes.error;
+    state.features.expensesAvailable = !expensesRes.error;
 
     state.likedPostIds = new Set((likesRes.data || []).map(x => x.post_id));
     const avatarUrl = profileRow.avatar_path ? await signedUrl('avatars', profileRow.avatar_path) : '';
@@ -531,6 +621,7 @@ async function loadData({ quiet = false } = {}) {
       if (record.attachment?.type?.startsWith('image/')) record.attachment.url = await signedUrl(record.attachment.bucket, record.attachment.path);
       return record;
     }));
+    state.db.expenses = (expensesRes.data || []).map(mapExpense);
     state.db.reminders = (remindersRes.data || []).map(mapReminder);
     state.db.posts = (postsRes.data || []).map(mapPost);
     await loadAdminData(state.db.users[0]);
@@ -545,7 +636,7 @@ async function loadData({ quiet = false } = {}) {
 function render() {
   const app = $('#app');
   if (state.loading) {
-    app.innerHTML = `<div class="auth-shell"><div class="auth-card" style="text-align:center"><div class="brand-mark" style="margin:0 auto 18px">🐾</div><h2>Carregando PetLife</h2><p class="meta">Conectando com sua nuvem segura...</p></div></div>`;
+    app.innerHTML = `<div class="auth-shell"><div class="auth-card" style="text-align:center"><img class="loading-logo" src="${BOOPY_LOGO_DATA}" alt="Boopy"><h2>Carregando Boopy</h2><p class="meta">Conectando com sua nuvem segura...</p></div></div>`;
     return;
   }
   app.innerHTML = state.session && currentUser() ? renderApp() : renderAuth();
@@ -556,7 +647,7 @@ function render() {
 function renderAuth() {
   const isLogin = state.authTab === 'login';
   return `<div class="auth-shell"><div class="auth-card">
-    <div class="brand"><div class="brand-mark">🐾</div><div><h1>PetLife</h1><p>Histórico digital inteligente do seu pet</p></div></div>
+    <div class="brand"><img class="brand-logo" src="${BOOPY_LOGO_DATA}" alt="Boopy — Toda a vida do seu pet, em um só lugar"></div>
     ${isLogin ? `
       <h2 class="auth-title">Entrar na sua conta</h2>
       <p class="auth-subtitle">Acesse o histórico e os documentos dos seus pets.</p>
@@ -571,7 +662,7 @@ function renderAuth() {
       <p class="auth-switch">Ainda não possui uma conta? <button type="button" data-auth-tab="signup">Criar conta</button></p>
     ` : `
       <h2 class="auth-title">Criar sua conta</h2>
-      <p class="auth-subtitle">Comece a organizar a vida, a saúde e os documentos dos seus pets.</p>
+      <p class="auth-subtitle">Toda a vida do seu pet, em um só lugar.</p>
       <form id="signup-form" class="form-grid">
         <div class="field full"><label for="signup-name">Nome completo</label><input id="signup-name" name="name" autocomplete="name" required></div>
         <div class="field full"><label for="signup-username">Nome de usuário</label><input id="signup-username" name="username" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+" required><span class="helper">Use letras, números ou underline.</span></div>
@@ -590,13 +681,13 @@ function renderAuth() {
 function renderApp() {
   const u = currentUser();
   return `<div class="app-shell"><main class="main">
-    <header class="topbar"><div><h1>${routeTitle()}</h1><p>${routeSubtitle()}</p></div><button class="avatar" data-route="profile">${u.photo ? `<img src="${u.photo}" alt="" class="avatar">` : esc(u.name?.[0] || 'U')}</button></header>
+    <header class="topbar"><div class="topbar-title"><img class="topbar-logo" src="${BOOPY_WORDMARK_DATA}" alt="Boopy"><div class="topbar-copy"><h1>${routeTitle()}</h1><p>${routeSubtitle()}</p></div></div><button class="avatar" data-route="profile">${u.photo ? `<img src="${u.photo}" alt="" class="avatar">` : esc(u.name?.[0] || 'U')}</button></header>
     ${renderRoute()}
   </main>
   <button class="fab" data-add-menu aria-label="Adicionar">＋</button>
   ${renderBottomNav()}</div>`;
 }
-function routeTitle() { return ({ home: 'Início', pets: 'Meus pets', community: 'Comunidade', reminders: 'Lembretes', profile: 'Perfil e configurações', admin: 'Painel administrativo', pet: 'Perfil do pet' }[state.route] || 'PetLife'); }
+function routeTitle() { return ({ home: 'Início', pets: 'Meus pets', community: 'Comunidade', reminders: 'Lembretes', profile: 'Perfil e configurações', admin: 'Painel administrativo', pet: 'Perfil do pet' }[state.route] || 'Boopy'); }
 function routeSubtitle() {
   const u = currentUser();
   return ({ home: `Olá, ${u.name.split(' ')[0]}! Cuide de quem faz parte da família.`, pets: 'Todos os seus pets em um só lugar.', community: 'Compartilhe experiências com outros tutores.', reminders: 'Não perca vacinas, consultas e medicamentos.', profile: 'Gerencie sua conta e suas preferências.', admin: 'Visão básica da operação do aplicativo.', pet: 'Histórico completo e organizado.' }[state.route] || '');
@@ -639,25 +730,48 @@ function renderPets() {
 function renderPet() {
   const p = petById(state.selectedPetId);
   if (!p) { state.route = 'pets'; return renderPets(); }
-  const recs = petRecords(p.id), rems = petReminders(p.id), latestWeight = recs.find(r => r.category === 'peso')?.weight || p.weight;
-  const tabs = [['overview', 'Visão geral'], ['timeline', 'Linha do tempo'], ['docs', 'Documentos'], ['health', 'Saúde'], ['photos', 'Fotos'], ['reminders', 'Lembretes']];
+  const recs = petRecords(p.id), expenses = petExpenses(p.id), rems = petReminders(p.id), latestWeight = recs.find(r => r.category === 'peso')?.weight || p.weight;
+  const totalExpenses = expenses.reduce((sum, x) => sum + x.amount, 0);
+  const tabs = [['overview', 'Visão geral'], ['timeline', 'Linha do tempo'], ['docs', 'Documentos'], ['health', 'Saúde'], ['finances', 'Finanças'], ['photos', 'Fotos'], ['reminders', 'Lembretes']];
   let body = '';
-  if (state.petTab === 'overview') body = `<div class="grid two"><section class="card"><h3>Próximos lembretes</h3>${rems.filter(r => !r.done).length ? `<div class="list">${rems.filter(r => !r.done).slice(0, 4).map(renderReminderItem).join('')}</div>` : '<div class="empty">Nenhum lembrete.</div>'}</section><section class="card"><h3>Registros recentes</h3>${recs.length ? `<div class="list">${recs.slice(0, 4).map(renderRecordListItem).join('')}</div>` : '<div class="empty">Nenhum registro.</div>'}</section></div>`;
-  if (state.petTab === 'timeline') body = renderTimeline(recs);
+  if (state.petTab === 'overview') body = `<div class="grid two"><section class="card"><h3>Próximos lembretes</h3>${rems.filter(r => !r.done).length ? `<div class="list">${rems.filter(r => !r.done).slice(0, 4).map(renderReminderItem).join('')}</div>` : '<div class="empty">Nenhum lembrete.</div>'}</section><section class="card"><h3>Atividades recentes</h3>${(recs.length || expenses.length) ? `<div class="list">${recentPetActivities(recs, expenses).slice(0, 4).map(renderActivityListItem).join('')}</div>` : '<div class="empty">Nenhum registro.</div>'}</section></div>`;
+  if (state.petTab === 'timeline') body = renderTimeline(recs, expenses);
   if (state.petTab === 'docs') body = renderFilteredRecords(recs.filter(r => ['exame', 'receita', 'laudo', 'documento', 'vacina'].includes(r.category)), 'Nenhum documento enviado.');
   if (state.petTab === 'health') body = renderFilteredRecords(recs.filter(r => ['vacina', 'consulta', 'exame', 'receita', 'laudo', 'medicamento', 'cirurgia', 'peso'].includes(r.category)), 'Nenhum registro de saúde.');
+  if (state.petTab === 'finances') body = renderFinances(expenses);
   if (state.petTab === 'photos') body = renderPhotos(recs.filter(r => r.category === 'foto' || r.attachment?.type?.startsWith('image/')));
   if (state.petTab === 'reminders') body = `<div class="card"><div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn secondary" data-open-reminder data-pet-id="${p.id}">＋ Novo lembrete</button></div>${rems.length ? `<div class="list">${rems.map(renderReminderItem).join('')}</div>` : '<div class="empty">Nenhum lembrete.</div>'}</div>`;
   return `<button class="link-btn" data-route="pets">← Voltar para pets</button>
   <section class="card"><div class="profile-hero">${p.photo ? `<img class="profile-photo" src="${p.photo}" alt="${esc(p.name)}">` : `<div class="profile-photo">${p.species === 'Gato' ? '🐱' : '🐶'}</div>`}<div><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><h2 style="font-size:32px;margin:0">${esc(p.name)}</h2><p class="meta">${esc(p.species)} · ${esc(p.breed || 'Raça não informada')} · ${esc(p.sex || 'Sexo não informado')}</p></div><button class="icon-btn" data-edit-pet="${p.id}">✏️</button></div><div class="badges"><span class="badge">${getAge(p.birthDate)}</span><span class="badge">${latestWeight ? `${latestWeight} kg` : 'Peso não informado'}</span><span class="badge">Microchip: ${esc(p.microchip || 'Não informado')}</span></div><p>${esc(p.notes || '')}</p></div></div>
-  <div class="stat-grid"><div class="stat"><strong>${recs.length}</strong><small>registros</small></div><div class="stat"><strong>${recs.filter(r => r.attachment).length}</strong><small>arquivos</small></div><div class="stat"><strong>${rems.filter(r => !r.done).length}</strong><small>lembretes</small></div><div class="stat"><strong>${recs.filter(r => r.category === 'vacina').length}</strong><small>vacinas</small></div></div></section>
+  <div class="stat-grid"><div class="stat"><strong>${recs.length + expenses.length}</strong><small>registros</small></div><div class="stat"><strong>${recs.filter(r => r.attachment).length + expenses.filter(x => x.attachment).length}</strong><small>arquivos</small></div><div class="stat"><strong>${rems.filter(r => !r.done).length}</strong><small>lembretes</small></div><div class="stat"><strong>${formatCurrency(totalExpenses)}</strong><small>gastos registrados</small></div></div></section>
   <div class="tabs" style="margin:16px 0">${tabs.map(([id, label]) => `<button class="tab ${state.petTab === id ? 'active' : ''}" data-pet-tab="${id}">${label}</button>`).join('')}</div>
   ${body}`;
 }
-function renderTimeline(recs) {
-  if (!recs.length) return `<div class="card empty"><div class="emoji">🗓️</div>Nenhum evento registrado.</div>`;
-  return `<div class="card"><div class="timeline">${recs.map(r => { const [icon, label] = categoryMap[r.category] || ['📌', 'Registro']; return `<div class="timeline-item"><div class="timeline-card"><h4>${icon} ${esc(r.title)}</h4><small>${formatDate(r.date)} · ${label}</small>${r.description ? `<p>${esc(r.description)}</p>` : ''}${r.attachment ? `<button class="link-btn" data-view-file="${r.id}">Abrir ${esc(r.attachment.name)}</button>` : ''}</div></div>`; }).join('')}</div></div>`;
+function recentPetActivities(recs, expenses) {
+  return [...recs.map(item => ({ kind: 'record', date: item.date, item })), ...expenses.map(item => ({ kind: 'expense', date: item.date, item }))].sort((a, b) => b.date.localeCompare(a.date));
 }
+function renderTimeline(recs, expenses = []) {
+  const activities = recentPetActivities(recs, expenses);
+  if (!activities.length) return `<div class="card empty"><div class="emoji">🗓️</div>Nenhum evento registrado.</div>`;
+  return `<div class="card"><div class="timeline">${activities.map(activity => {
+    if (activity.kind === 'expense') {
+      const x = activity.item;
+      return `<div class="timeline-item"><div class="timeline-card"><h4>💰 ${esc(x.title)}</h4><small>${formatDate(x.date)} · ${esc(x.type)} · ${formatCurrency(x.amount)}</small>${x.description ? `<p>${esc(x.description)}</p>` : ''}${x.attachment ? `<button class="link-btn" data-view-expense-file="${x.id}">Abrir ${esc(x.attachment.name)}</button>` : ''}</div></div>`;
+    }
+    const r = activity.item, [icon, label] = categoryMap[r.category] || ['📌', 'Registro'];
+    return `<div class="timeline-item"><div class="timeline-card"><h4>${icon} ${esc(r.title)}</h4><small>${formatDate(r.date)} · ${label}</small>${r.description ? `<p>${esc(r.description)}</p>` : ''}${r.attachment ? `<button class="link-btn" data-view-file="${r.id}">Abrir ${esc(r.attachment.name)}</button>` : ''}</div></div>`;
+  }).join('')}</div></div>`;
+}
+function renderActivityListItem(activity) { return activity.kind === 'expense' ? renderExpenseListItem(activity.item) : renderRecordListItem(activity.item); }
+function renderFinances(expenses) {
+  if (!state.features.expensesAvailable) return `<div class="card empty"><div class="emoji">🧩</div><h3>Finanças precisa ser ativada</h3><p>Execute o arquivo SQL de migração no Supabase antes de usar esta área.</p></div>`;
+  const total = expenses.reduce((sum, x) => sum + x.amount, 0);
+  return `<div class="card"><div class="finance-summary"><div class="finance-pill"><small>Total registrado</small><strong>${formatCurrency(total)}</strong></div><div class="finance-pill"><small>Lançamentos</small><strong>${expenses.length}</strong></div></div>${expenses.length ? `<div class="list">${expenses.map(renderExpenseListItem).join('')}</div>` : '<div class="empty">Nenhuma despesa registrada.</div>'}</div>`;
+}
+function renderExpenseListItem(x) {
+  return `<div class="list-item"><div class="list-icon">💰</div><div class="list-body"><strong>${esc(x.title)}</strong><small>${petName(x.petId)} · ${formatDate(x.date)} · ${esc(x.type)} · <span class="money-value">${formatCurrency(x.amount)}</span></small></div><div class="list-actions">${x.attachment ? `<button class="icon-btn" data-view-expense-file="${x.id}">👁</button>` : ''}<button class="icon-btn" data-delete-expense="${x.id}">🗑</button></div></div>`;
+}
+
 function renderFilteredRecords(recs, empty) { return recs.length ? `<div class="card"><div class="list">${recs.map(renderRecordListItem).join('')}</div></div>` : `<div class="card empty">${empty}</div>`; }
 function renderPhotos(recs) {
   if (!recs.length) return `<div class="card empty">Nenhuma foto adicionada.</div>`;
@@ -684,7 +798,7 @@ function renderReminders() {
 function renderProfile() {
   const u = currentUser();
   return `<div class="grid two"><section class="card"><h2>Dados do tutor</h2><form id="profile-form" class="form-grid"><div class="field full"><label>Foto de perfil</label><input type="file" name="avatar" accept="image/jpeg,image/png"></div><div class="field full"><label>Nome completo</label><input name="name" value="${esc(u.name)}" required></div><div class="field full"><label>Nome de usuário</label><input name="username" value="${esc(u.username)}" pattern="[A-Za-z0-9_]+" required></div><div class="field full"><label>E-mail</label><input type="email" name="email" value="${esc(u.email)}" required></div><div class="field"><label>Telefone</label><input name="phone" value="${esc(u.phone || '')}"></div><div class="field"><label>Cidade</label><input name="city" value="${esc(u.city || '')}"></div><div class="field"><label>Estado</label><input name="state" maxlength="2" value="${esc(u.state || '')}"></div><div class="field"><label>Conta criada em</label><input value="${formatDate(u.createdAt)}" disabled></div><div class="field full"><button class="btn primary">Salvar alterações</button></div></form></section>
-  <section class="card"><h2>Conta e privacidade</h2><div class="list"><div class="list-item"><div class="list-icon">🔐</div><div class="list-body"><strong>Alterar senha</strong><small>Enviaremos um link seguro para seu e-mail.</small></div><button class="icon-btn" data-change-password>→</button></div><div class="list-item"><div class="list-icon">📥</div><div class="list-body"><strong>Exportar meus dados</strong><small>Baixe uma cópia do conteúdo do aplicativo.</small></div><button class="icon-btn" data-export>⬇️</button></div>${u.role === 'admin' ? `<div class="list-item"><div class="list-icon">🛡️</div><div class="list-body"><strong>Painel administrativo</strong><small>Área de moderação e indicadores.</small></div><button class="icon-btn" data-route="admin">→</button></div>` : ''}</div><div style="display:grid;gap:10px;margin-top:18px"><button class="btn ghost" data-logout>Sair da conta</button><button class="btn danger" data-delete-account>Solicitar exclusão da conta</button></div><div class="notice" style="margin-top:16px">Seus dados estão armazenados na nuvem do PetLife e protegidos por regras de acesso vinculadas à sua conta.</div></section></div>`;
+  <section class="card"><h2>Conta e privacidade</h2><div class="list"><div class="list-item"><div class="list-icon">🔐</div><div class="list-body"><strong>Alterar senha</strong><small>Enviaremos um link seguro para seu e-mail.</small></div><button class="icon-btn" data-change-password>→</button></div><div class="list-item"><div class="list-icon">📥</div><div class="list-body"><strong>Exportar meus dados</strong><small>Baixe uma cópia do conteúdo do aplicativo.</small></div><button class="icon-btn" data-export>⬇️</button></div>${u.role === 'admin' ? `<div class="list-item"><div class="list-icon">🛡️</div><div class="list-body"><strong>Painel administrativo</strong><small>Área de moderação e indicadores.</small></div><button class="icon-btn" data-route="admin">→</button></div>` : ''}</div><div style="display:grid;gap:10px;margin-top:18px"><button class="btn ghost" data-logout>Sair da conta</button><button class="btn danger" data-delete-account>Solicitar exclusão da conta</button></div><div class="notice" style="margin-top:16px">Seus dados estão armazenados na nuvem do Boopy e protegidos por regras de acesso vinculadas à sua conta.</div></section></div>`;
 }
 function renderAdmin() {
   const u = currentUser();
@@ -704,6 +818,8 @@ function bindEvents() {
   $$('[data-toggle-reminder]').forEach(b => b.addEventListener('click', () => toggleReminder(b.dataset.toggleReminder)));
   $$('[data-delete-reminder]').forEach(b => b.addEventListener('click', () => deleteReminder(b.dataset.deleteReminder)));
   $$('[data-delete-record]').forEach(b => b.addEventListener('click', () => deleteRecord(b.dataset.deleteRecord)));
+  $$('[data-delete-expense]').forEach(b => b.addEventListener('click', () => deleteExpense(b.dataset.deleteExpense)));
+  $$('[data-view-expense-file]').forEach(b => b.addEventListener('click', () => viewExpenseFile(b.dataset.viewExpenseFile)));
   $$('[data-view-file]').forEach(b => b.addEventListener('click', () => viewFile(b.dataset.viewFile)));
   $$('[data-like-post]').forEach(b => b.addEventListener('click', () => likePost(b.dataset.likePost)));
   $$('[data-report-post]').forEach(b => b.addEventListener('click', () => reportPost(b.dataset.reportPost)));
@@ -787,12 +903,13 @@ async function logout() {
 function renderModal() {
   document.body.insertAdjacentHTML('beforeend', `<div class="modal-backdrop"><div class="modal">${state.modal}</div></div>`);
   $('.modal-backdrop').addEventListener('click', e => { if (e.target.classList.contains('modal-backdrop')) closeModal(); });
-  $('[data-close-modal]')?.addEventListener('click', closeModal);
+  $$('[data-close-modal]', $('.modal-backdrop')).forEach(button => button.addEventListener('click', closeModal));
   bindPasswordToggles($('.modal-backdrop'));
 }
 function closeModal() { state.modal = null; $('.modal-backdrop')?.remove(); }
 
 function openPetModal(pet = null) {
+  state.petPhotoEditor = null;
   state.modal = `<div class="modal-head"><h2>${pet ? 'Editar pet' : 'Cadastrar pet'}</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="pet-form" class="form-grid">
     <input type="hidden" name="id" value="${pet?.id || ''}">
     <div class="field"><label>Nome *</label><input name="name" value="${esc(pet?.name || '')}" required></div><div class="field"><label>Espécie *</label><select name="species" required><option value="">Selecione</option>${['Cachorro', 'Gato', 'Ave', 'Réptil', 'Roedor', 'Outro'].map(x => `<option ${pet?.species === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div>
@@ -801,19 +918,63 @@ function openPetModal(pet = null) {
     <div class="field"><label>Cor</label><input name="color" value="${esc(pet?.color || '')}"></div><div class="field"><label>Peso atual (kg)</label><input type="number" step="0.01" name="weight" value="${pet?.weight || ''}"></div>
     <div class="field"><label>Castrado</label><select name="neutered">${['Não informado', 'Sim', 'Não'].map(x => `<option ${pet?.neutered === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div><div class="field"><label>Possui microchip</label><select name="microchip">${['Não informado', 'Sim', 'Não'].map(x => `<option ${pet?.microchip === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div>
     <div class="field full"><label>Número do microchip</label><input name="microchipNumber" value="${esc(pet?.microchipNumber || '')}"></div>
-    <div class="field full"><label>Foto principal</label><input type="file" name="photoFile" accept="image/jpeg,image/png"><span class="helper">JPG ou PNG de até 5 MB.</span></div>
+    <div class="field full"><label>Foto principal</label><input id="pet-photo-input" type="file" name="photoFile" accept="image/jpeg,image/png"><span class="helper">Escolha uma foto e ajuste o zoom e o enquadramento antes de salvar.</span></div>
+    <div id="pet-photo-editor" class="field full crop-editor"><canvas id="pet-photo-canvas" class="crop-canvas" width="800" height="800"></canvas><div class="crop-controls"><label>Zoom<input id="crop-zoom" type="range" min="100" max="300" value="100"></label><label>Posição horizontal<input id="crop-x" type="range" min="-100" max="100" value="0"></label><label>Posição vertical<input id="crop-y" type="range" min="-100" max="100" value="0"></label><div class="info-hint"><span class="info-icon">i</span><span>O enquadramento mostrado será usado como foto final do pet.</span></div></div></div>
     <div class="field full"><label>Observações gerais</label><textarea name="notes">${esc(pet?.notes || '')}</textarea></div>
     <div class="field full"><button class="btn primary">Salvar pet</button></div>${pet ? `<div class="field full"><button type="button" class="btn danger" data-delete-pet="${pet.id}">Excluir pet</button></div>` : ''}
   </form>`;
   renderModal();
+  $('#pet-photo-input').addEventListener('change', initializePetPhotoEditor);
   $('#pet-form').addEventListener('submit', savePet);
   $('[data-delete-pet]')?.addEventListener('click', () => deletePet(pet.id));
+}
+function initializePetPhotoEditor(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { e.target.value = ''; return toast('A foto deve ter até 5 MB.'); }
+  const image = new Image();
+  image.onload = () => {
+    state.petPhotoEditor = { file, image, zoom: 1, x: 0, y: 0 };
+    $('#pet-photo-editor')?.classList.add('active');
+    drawPetPhotoCrop();
+  };
+  image.onerror = () => toast('Não foi possível abrir esta imagem.');
+  image.src = URL.createObjectURL(file);
+  ['crop-zoom', 'crop-x', 'crop-y'].forEach(id => document.getElementById(id)?.addEventListener('input', updatePetPhotoCrop));
+}
+function updatePetPhotoCrop() {
+  if (!state.petPhotoEditor) return;
+  state.petPhotoEditor.zoom = Number($('#crop-zoom')?.value || 100) / 100;
+  state.petPhotoEditor.x = Number($('#crop-x')?.value || 0) / 100;
+  state.petPhotoEditor.y = Number($('#crop-y')?.value || 0) / 100;
+  drawPetPhotoCrop();
+}
+function drawPetPhotoCrop(targetCanvas = $('#pet-photo-canvas')) {
+  const editor = state.petPhotoEditor;
+  if (!editor || !targetCanvas) return;
+  const ctx = targetCanvas.getContext('2d'), size = targetCanvas.width;
+  const baseScale = Math.max(size / editor.image.naturalWidth, size / editor.image.naturalHeight);
+  const scale = baseScale * editor.zoom;
+  const width = editor.image.naturalWidth * scale, height = editor.image.naturalHeight * scale;
+  const maxX = Math.max(0, (width - size) / 2), maxY = Math.max(0, (height - size) / 2);
+  const dx = (size - width) / 2 + editor.x * maxX;
+  const dy = (size - height) / 2 + editor.y * maxY;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, size, size);
+  ctx.drawImage(editor.image, dx, dy, width, height);
+}
+function croppedPetPhotoBlob() {
+  return new Promise(resolve => {
+    if (!state.petPhotoEditor) return resolve(null);
+    const canvas = document.createElement('canvas'); canvas.width = 800; canvas.height = 800;
+    drawPetPhotoCrop(canvas);
+    canvas.toBlob(blob => resolve(blob), 'image/jpeg', .9);
+  });
 }
 async function savePet(e) {
   e.preventDefault();
   const button = e.submitter, f = new FormData(e.target), old = petById(String(f.get('id'))), id = old?.id || crypto.randomUUID();
-  const file = f.get('photoFile');
-  if (file?.size && file.size > 5 * 1024 * 1024) return toast('A foto deve ter até 5 MB.');
+  const originalFile = f.get('photoFile');
+  if (originalFile?.size && originalFile.size > 5 * 1024 * 1024) return toast('A foto deve ter até 5 MB.');
   setBusy(button, true, 'Salvando...');
   try {
     let photoPath = old?.photoPath || null;
@@ -837,14 +998,16 @@ async function savePet(e) {
     const saved = old ? await sb.from('pets').update(payload).eq('id', id) : await sb.from('pets').insert(payload);
     if (saved.error) throw saved.error;
 
-    if (file?.size) {
-      const path = `${state.authUser.id}/${id}/profile-${Date.now()}.${fileExt(file.name)}`;
-      const uploaded = await sb.storage.from('pet-files').upload(path, file, { contentType: file.type, upsert: false });
+    const croppedBlob = await croppedPetPhotoBlob();
+    if (croppedBlob) {
+      const path = `${state.authUser.id}/${id}/profile-${Date.now()}.jpg`;
+      const uploaded = await sb.storage.from('pet-files').upload(path, croppedBlob, { contentType: 'image/jpeg', upsert: false });
       if (uploaded.error) throw uploaded.error;
       const updated = await sb.from('pets').update({ photo_path: path }).eq('id', id);
       if (updated.error) throw updated.error;
       if (photoPath) await sb.storage.from('pet-files').remove([photoPath]);
     }
+    state.petPhotoEditor = null;
     closeModal();
     state.selectedPetId = id;
     state.route = 'pet';
@@ -854,10 +1017,11 @@ async function savePet(e) {
     toast(friendlyError(error, 'Não foi possível salvar o pet.'));
   } finally { setBusy(button, false); }
 }
+
 async function deletePet(id) {
   if (!confirm('Excluir este pet e todos os registros, documentos e lembretes relacionados?')) return;
-  const pet = petById(id), recordPaths = state.db.records.filter(r => r.petId === id && r.attachment).map(r => r.attachment.path);
-  const paths = [pet?.photoPath, ...recordPaths].filter(Boolean);
+  const pet = petById(id), recordPaths = state.db.records.filter(r => r.petId === id && r.attachment).map(r => r.attachment.path), expensePaths = state.db.expenses.filter(x => x.petId === id && x.attachment).map(x => x.attachment.path);
+  const paths = [pet?.photoPath, ...recordPaths, ...expensePaths].filter(Boolean);
   if (paths.length) await sb.storage.from('pet-files').remove(paths);
   const { error } = await sb.from('pets').delete().eq('id', id);
   if (error) return toast(friendlyError(error));
@@ -865,24 +1029,32 @@ async function deletePet(id) {
 }
 
 function openAddMenu() {
+  $('.modal-backdrop')?.remove();
   if (!myPets().length) { openPetModal(); return; }
-  state.modal = `<div class="modal-head"><h2>Adicionar informação</h2><button class="icon-btn" data-close-modal>✕</button></div><div class="grid three">${Object.entries(categoryMap).map(([id, [icon, label]]) => `<button class="btn ghost" data-category="${id}" style="min-height:86px;flex-direction:column"><span style="font-size:28px">${icon}</span>${label}</button>`).join('')}</div>`;
+  state.modal = `<div class="modal-head"><div><h2>Adicionar informação</h2><p class="meta" style="margin:4px 0 0">Escolha uma categoria para criar um novo registro.</p></div><button class="icon-btn" data-close-modal>✕</button></div><div class="macro-list">${macroCategories.map(macro => `<section class="macro-section"><div class="macro-head"><h3>${macro.icon} ${macro.title}</h3></div><div class="category-grid">${macro.items.map(id => { const [icon, label] = categoryMap[id]; const standby = id === 'comprinhas'; return `<button type="button" class="category-card ${standby ? 'coming-soon' : ''}" ${standby ? `data-coming-soon="${label}" aria-disabled="true"` : `data-category="${id}"`}><span class="category-icon">${icon}</span><span>${label}</span>${standby ? '<span class="soon-badge">Em desenvolvimento</span>' : ''}</button>`; }).join('')}</div></section>`).join('')}</div>`;
   renderModal();
-  $$('[data-category]').forEach(b => b.addEventListener('click', () => openRecordModal(b.dataset.category)));
+  $$('[data-category]').forEach(b => b.addEventListener('click', () => b.dataset.category === 'financas' ? openExpenseModal() : openRecordModal(b.dataset.category)));
+  $$('[data-coming-soon]').forEach(b => b.addEventListener('click', () => toast(`${b.dataset.comingSoon}: em desenvolvimento.`)));
 }
+function recordModalHeader(icon, label) {
+  return `<div class="modal-head"><div class="modal-title-group"><button type="button" class="back-btn" data-back-categories aria-label="Voltar para categorias">←</button><div><h2 style="margin:0">${icon} Novo registro</h2><p class="meta" style="margin:3px 0 0">${label}</p></div></div><button class="icon-btn" data-close-modal>✕</button></div>`;
+}
+function bindBackToCategories() { $('[data-back-categories]')?.addEventListener('click', openAddMenu); }
 function openRecordModal(category = 'evento') {
   $('.modal-backdrop')?.remove();
   const [icon, label] = categoryMap[category] || ['📌', 'Registro'];
-  state.modal = `<div class="modal-head"><h2>${icon} Novo registro</h2><button class="icon-btn" data-close-modal>✕</button></div><form id="record-form" class="form-grid">
+  const routine = routineCategories.has(category), health = healthCategories.has(category);
+  state.modal = `${recordModalHeader(icon, label)}<form id="record-form" class="form-grid">
     <input type="hidden" name="category" value="${category}"><div class="field"><label>Pet *</label><select name="petId" required>${myPets().map(p => `<option value="${p.id}" ${p.id === state.selectedPetId ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Categoria</label><input value="${label}" disabled></div>
-    <div class="field full"><label>Título *</label><input name="title" required placeholder="Ex.: Vacina antirrábica"></div><div class="field"><label>Data do evento *</label><input type="date" name="date" value="${isoDate()}" required></div><div class="field"><label>Data de retorno</label><input type="date" name="returnDate"></div>
+    <div class="field full"><label>Título *</label><input name="title" required placeholder="Ex.: ${routine ? 'Passeio no parque' : health ? 'Vacina antirrábica' : 'Documento importante'}"></div><div class="field"><label>Data do evento *</label><input type="date" name="date" value="${isoDate()}" required></div>
+    ${health ? `<div class="field"><label>Data de retorno</label><input type="date" name="returnDate"></div><div class="field full"><div class="info-hint"><span class="info-icon">i</span><span>Ao preencher a data de retorno, o Boopy criará automaticamente um lembrete. Depois de salvar, você também poderá adicionar o retorno ao Google Agenda ou ao Outlook.</span></div></div>` : ''}
     ${category === 'peso' ? '<div class="field"><label>Peso (kg) *</label><input type="number" step="0.01" name="weight" required></div>' : ''}
-    <div class="field"><label>Clínica</label><input name="clinic"></div><div class="field"><label>Veterinário</label><input name="vet"></div><div class="field full"><label>Descrição</label><textarea name="description"></textarea></div>
+    ${health ? '<div class="field"><label>Clínica</label><input name="clinic"></div><div class="field"><label>Veterinário</label><input name="vet"></div>' : ''}
+    <div class="field full"><label>Descrição</label><textarea name="description"></textarea></div>
     <div class="field full"><label>Foto ou documento</label><input id="record-file" type="file" name="attachment" accept="image/jpeg,image/png,application/pdf"><span class="helper">Imagens de até 5 MB e PDFs de até 10 MB.</span></div>
-    <div class="field full"><label><input type="checkbox" name="createReminder"> Criar lembrete usando a data de retorno</label></div>
     <div id="ai-preview" class="field full"></div><div class="field full"><button class="btn primary">Salvar registro</button></div>
   </form>`;
-  renderModal();
+  renderModal(); bindBackToCategories();
   $('#record-file').addEventListener('change', simulateAI);
   $('#record-form').addEventListener('submit', saveRecord);
 }
@@ -940,16 +1112,101 @@ async function saveRecord(e) {
       if (attachment.error) throw attachment.error;
     }
     if (category === 'peso' && payload.weight_kg) await sb.from('pets').update({ current_weight: payload.weight_kg }).eq('id', petId);
-    if (f.get('createReminder') && payload.return_date) {
-      const reminder = await sb.from('reminders').insert({ owner_id: state.authUser.id, pet_id: petId, title: `Retorno: ${payload.title}`, type: category, due_date: payload.return_date, notes: 'Criado a partir de um registro.' });
+    if (healthCategories.has(category) && payload.return_date) {
+      let reminder = await sb.from('reminders').insert({ owner_id: state.authUser.id, pet_id: petId, title: `Retorno: ${payload.title}`, type: category, due_date: payload.return_date, notes: 'Criado automaticamente a partir de um registro de saúde.', source_record_id: recordId });
+      if (reminder.error && /source_record_id/i.test(reminder.error.message || '')) reminder = await sb.from('reminders').insert({ owner_id: state.authUser.id, pet_id: petId, title: `Retorno: ${payload.title}`, type: category, due_date: payload.return_date, notes: 'Criado automaticamente a partir de um registro de saúde.' });
       if (reminder.error) throw reminder.error;
     }
-    closeModal(); state.selectedPetId = petId; state.route = 'pet'; state.petTab = 'timeline'; await loadData(); toast('Registro salvo na nuvem.');
+    closeModal(); state.selectedPetId = petId; state.route = 'pet'; state.petTab = 'timeline'; await loadData();
+    if (healthCategories.has(category) && payload.return_date) openCalendarOptions({ title: `Retorno: ${payload.title}`, date: payload.return_date, description: `Retorno de ${petName(petId)}. ${payload.description || ''}`.trim() });
+    else toast('Registro salvo na nuvem.');
   } catch (error) { toast(friendlyError(error, 'Não foi possível salvar o registro.')); }
   finally { setBusy(button, false); }
 }
+function openExpenseModal() {
+  $('.modal-backdrop')?.remove();
+  if (!state.features.expensesAvailable) return showFinanceMigrationNotice();
+  const [icon, label] = categoryMap.financas;
+  state.modal = `${recordModalHeader(icon, label)}<form id="expense-form" class="form-grid">
+    <div class="field"><label>Pet *</label><select name="petId" required>${myPets().map(p => `<option value="${p.id}" ${p.id === state.selectedPetId ? 'selected' : ''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Categoria</label><input value="Finanças" disabled></div>
+    <div class="field full"><label>Título *</label><input name="title" required placeholder="Ex.: Consulta de rotina"></div>
+    <div class="field"><label>Tipo de gasto *</label><input name="expenseType" list="expense-types" required placeholder="Ex.: ração, veterinário ou remédio"><datalist id="expense-types">${expenseTypeSuggestions.map(x => `<option value="${x}">`).join('')}</datalist></div>
+    <div class="field"><label>Valor *</label><input name="amount" inputmode="decimal" required placeholder="0,00"></div>
+    <div class="field"><label>Data do gasto *</label><input type="date" name="date" value="${isoDate()}" required></div><div class="field"><label>Estabelecimento</label><input name="merchant" placeholder="Ex.: Clínica ou loja"></div>
+    <div class="field"><label>Forma de pagamento</label><select name="paymentMethod"><option value="">Não informar</option>${['Pix', 'Débito', 'Crédito', 'Dinheiro', 'Boleto', 'Outro'].map(x => `<option>${x}</option>`).join('')}</select></div><div class="field"><label>Data da próxima compra</label><input type="date" name="nextPurchaseDate"></div>
+    <div class="field full"><div class="info-hint"><span class="info-icon">i</span><span>Se você preencher a data da próxima compra, criaremos automaticamente um lembrete e ofereceremos a opção de adicionar o evento à sua agenda.</span></div></div>
+    <div class="field full"><label>Descrição</label><textarea name="description"></textarea></div>
+    <div class="field full"><label>Arquivo ou comprovante</label><input type="file" name="attachment" accept="image/jpeg,image/png,application/pdf"><span class="helper">Campo opcional. Imagens de até 5 MB e PDFs de até 10 MB.</span></div>
+    <div class="field full"><button class="btn primary">Salvar despesa</button></div>
+  </form>`;
+  renderModal(); bindBackToCategories(); $('#expense-form').addEventListener('submit', saveExpense);
+}
+function showFinanceMigrationNotice() {
+  state.modal = `${recordModalHeader('💰', 'Finanças')}<div class="empty"><div class="emoji">🧩</div><h3>Ative a estrutura financeira</h3><p>Execute o arquivo <strong>boopy-migracao-financas-v4.sql</strong> no SQL Editor do Supabase. Depois, recarregue o aplicativo.</p></div>`;
+  renderModal(); bindBackToCategories();
+}
+async function saveExpense(e) {
+  e.preventDefault();
+  const button = e.submitter, f = new FormData(e.target), file = f.get('attachment'), amount = parseMoney(f.get('amount'));
+  if (!Number.isFinite(amount) || amount <= 0) return toast('Informe um valor maior que zero.');
+  if (file?.size) {
+    const limit = file.type === 'application/pdf' ? 10 : 5;
+    if (file.size > limit * 1024 * 1024) return toast(`O arquivo deve ter até ${limit} MB.`);
+    if (!['image/jpeg', 'image/png', 'application/pdf'].includes(file.type)) return toast('Formato de arquivo não permitido.');
+  }
+  setBusy(button, true, 'Salvando...');
+  const expenseId = crypto.randomUUID(), petId = String(f.get('petId'));
+  try {
+    const payload = {
+      id: expenseId, owner_id: state.authUser.id, pet_id: petId, expense_kind: 'finance',
+      title: String(f.get('title')).trim(), expense_type: String(f.get('expenseType')).trim(), amount,
+      expense_date: String(f.get('date')), description: String(f.get('description') || ''),
+      merchant: String(f.get('merchant') || ''), payment_method: String(f.get('paymentMethod') || ''),
+      next_purchase_date: String(f.get('nextPurchaseDate') || '') || null
+    };
+    const inserted = await sb.from('pet_expenses').insert(payload);
+    if (inserted.error) throw inserted.error;
+    if (file?.size) {
+      const path = `${state.authUser.id}/${petId}/expenses/${expenseId}/${Date.now()}-${safeFileName(file.name)}`;
+      const uploaded = await sb.storage.from('pet-files').upload(path, file, { contentType: file.type, upsert: false });
+      if (uploaded.error) throw uploaded.error;
+      const updated = await sb.from('pet_expenses').update({ attachment_bucket: 'pet-files', attachment_path: path, attachment_name: file.name, attachment_mime: file.type, attachment_size: file.size }).eq('id', expenseId);
+      if (updated.error) throw updated.error;
+    }
+    if (payload.next_purchase_date) {
+      const reminder = await sb.from('reminders').insert({ owner_id: state.authUser.id, pet_id: petId, title: `Comprar novamente: ${payload.title}`, type: 'financas', due_date: payload.next_purchase_date, notes: `Gasto anterior: ${formatCurrency(amount)} · ${payload.expense_type}`, source_expense_id: expenseId });
+      if (reminder.error) throw reminder.error;
+    }
+    closeModal(); state.selectedPetId = petId; state.route = 'pet'; state.petTab = 'finances'; await loadData();
+    if (payload.next_purchase_date) openCalendarOptions({ title: `Comprar novamente: ${payload.title}`, date: payload.next_purchase_date, description: `${petName(petId)} · ${payload.expense_type}` });
+    else toast('Despesa salva na nuvem.');
+  } catch (error) {
+    if (isMissingExpenseTable(error)) state.features.expensesAvailable = false;
+    toast(friendlyError(error, isMissingExpenseTable(error) ? 'Execute a migração financeira no Supabase antes de salvar.' : 'Não foi possível salvar a despesa.'));
+  } finally { setBusy(button, false); }
+}
+function nextDayCompact(date) { const d = new Date(`${date}T12:00:00`); d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10).replaceAll('-', ''); }
+function calendarIcs({ title, date, description = '' }) {
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const start = date.replaceAll('-', ''), end = nextDayCompact(date);
+  const clean = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Boopy//PT-BR','BEGIN:VEVENT',`UID:${crypto.randomUUID()}@boopy`,`DTSTAMP:${stamp}`,`DTSTART;VALUE=DATE:${start}`,`DTEND;VALUE=DATE:${end}`,`SUMMARY:${clean(title)}`,`DESCRIPTION:${clean(description)}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+}
+function openCalendarOptions(event) {
+  state.modal = `<div class="modal-head"><div><h2>✅ Registro salvo</h2><p class="meta" style="margin:4px 0 0">O lembrete foi criado no Boopy.</p></div><button class="icon-btn" data-close-modal>✕</button></div><div class="info-hint"><span class="info-icon">i</span><span>Adicionar à agenda é opcional. Você poderá revisar o evento antes de confirmar.</span></div><div class="calendar-actions"><button class="btn primary" data-google-calendar>Adicionar ao Google Agenda</button><button class="btn ghost" data-outlook-calendar>Adicionar ao Outlook (.ics)</button><button class="btn secondary" data-close-modal>Concluir</button></div>`;
+  renderModal();
+  $('[data-google-calendar]')?.addEventListener('click', () => {
+    const dates = `${event.date.replaceAll('-', '')}/${nextDayCompact(event.date)}`;
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${dates}&details=${encodeURIComponent(event.description || '')}`;
+    window.open(url, '_blank', 'noopener');
+  });
+  $('[data-outlook-calendar]')?.addEventListener('click', () => {
+    const blob = new Blob([calendarIcs(event)], { type: 'text/calendar;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${safeFileName(event.title || 'evento-boopy')}.ics`; a.click(); URL.revokeObjectURL(a.href);
+  });
+}
 async function deleteRecord(id) {
-  if (!confirm('Excluir este registro?')) return;
+  if (!confirm('Excluir este registro? O lembrete automático relacionado continuará existindo, salvo se você o excluir na área de lembretes.')) return;
   const record = state.db.records.find(x => x.id === id);
   if (record?.attachment) await sb.storage.from(record.attachment.bucket).remove([record.attachment.path]);
   const { error } = await sb.from('pet_records').delete().eq('id', id);
@@ -961,6 +1218,21 @@ async function viewFile(id) {
   if (!record?.attachment) return;
   const { data, error } = await sb.storage.from(record.attachment.bucket).createSignedUrl(record.attachment.path, 300);
   if (error) return toast(friendlyError(error, 'Não foi possível abrir o arquivo.'));
+  window.open(data.signedUrl, '_blank', 'noopener');
+}
+async function deleteExpense(id) {
+  if (!confirm('Excluir esta despesa? O lembrete automático relacionado continuará existindo, salvo se você o excluir na área de lembretes.')) return;
+  const expense = state.db.expenses.find(x => x.id === id);
+  if (expense?.attachment) await sb.storage.from(expense.attachment.bucket).remove([expense.attachment.path]);
+  const { error } = await sb.from('pet_expenses').delete().eq('id', id);
+  if (error) return toast(friendlyError(error));
+  await loadData({ quiet: true }); toast('Despesa excluída.');
+}
+async function viewExpenseFile(id) {
+  const expense = state.db.expenses.find(x => x.id === id);
+  if (!expense?.attachment) return;
+  const { data, error } = await sb.storage.from(expense.attachment.bucket).createSignedUrl(expense.attachment.path, 300);
+  if (error) return toast(friendlyError(error, 'Não foi possível abrir o comprovante.'));
   window.open(data.signedUrl, '_blank', 'noopener');
 }
 
@@ -1042,8 +1314,8 @@ async function saveProfile(e) {
   finally { setBusy(button, false); }
 }
 function exportData() {
-  const blob = new Blob([JSON.stringify({ user: currentUser(), pets: myPets(), records: ownerRecords(), reminders: ownerReminders() }, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'petlife-meus-dados.json'; a.click(); URL.revokeObjectURL(a.href);
+  const blob = new Blob([JSON.stringify({ user: currentUser(), pets: myPets(), records: ownerRecords(), expenses: ownerExpenses(), reminders: ownerReminders() }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'boopy-meus-dados.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 async function requestAccountDeletion() {
   if (!confirm('Deseja solicitar a exclusão da sua conta e de todos os dados? Durante a beta, a solicitação será revisada administrativamente.')) return;
@@ -1057,7 +1329,7 @@ async function handleAuthEvent(event, session) {
   state.session = session;
   state.authUser = session?.user || null;
   if (!session) {
-    state.db = { users: [], pets: [], records: [], reminders: [], posts: [], reports: [] };
+    state.db = { users: [], pets: [], records: [], expenses: [], reminders: [], posts: [], reports: [] };
     state.loading = false; state.route = 'home'; state.selectedPetId = null; render(); return;
   }
   const isRecovery = event === 'PASSWORD_RECOVERY';
